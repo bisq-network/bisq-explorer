@@ -7,7 +7,7 @@
 #                                         #                                         
 ###########################################
 
-import squ_globals
+import bsq_globals
 from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 import json
 
@@ -19,14 +19,14 @@ tx_properties=\
      'height', \
      'outputs_list', \
      'is_issuance_tx', \
-     'squ_sent', 'squ_received', 'squ_burnt', \
+     'bsq_sent', 'bsq_received', 'bsq_burnt', \
      'addresses', \
      'icon', 'icon_text', 'color', \
      'details', 'tx_type_str', \
      'status']
 
 output_properties=\
-    [u'txid', u'index', u'squ_amount', u'spent_info', u'validated']
+    [u'txid', u'index', u'bsq_amount', u'spent_info', u'validated']
 
 # update the main tx database
 # example call:
@@ -93,21 +93,21 @@ def initial_tx_dict_load():
 
 def get_sorted_tx_list(reverse=False):
     tx_list=[]
-    for i in squ_globals.tx_dict.items():
+    for i in bsq_globals.tx_dict.items():
         tx_list.append(i[1])
     return sorted(tx_list, key=lambda k: k[u'height'], reverse=reverse)
 
 
 def get_tx_json(txid):
     try:
-        tx_json=squ_globals.rpc_connection.getrawtransaction(txid,1)
+        tx_json=bsq_globals.rpc_connection.getrawtransaction(txid,1)
         return tx_json
     except Exception as e:
         print "oops (get_tx_json):",e
 
 def get_height():
     try:
-        info=squ_globals.rpc_connection.getinfo()
+        info=bsq_globals.rpc_connection.getinfo()
     except Exception as e:
         print "oops (get_height):",e
     return int(info[u'blocks'])
@@ -124,7 +124,7 @@ def get_inputs(txid):
 
 def get_spent_json(txid,index):
     try:
-        j=squ_globals.rpc_connection.getspentinfo({"txid": txid, "index": index})
+        j=bsq_globals.rpc_connection.getspentinfo({"txid": txid, "index": index})
         #print j
         # for example -
         # request: 
@@ -173,12 +173,12 @@ def recursive_get_spent_tx(spent_dict, max_height):
 #            print key+' -> '+str(j)
 #            print get_inputs(txid)
             utxo_visited[key]=True
-            if squ_globals.squo_dict.has_key(key):
-                squ_globals.squo_dict[key][u'spent_info']=j
-                squ_globals.squutxo_dict[key][u'spent_info']=j
+            if bsq_globals.bsqo_dict.has_key(key):
+                bsq_globals.bsqo_dict[key][u'spent_info']=j
+                bsq_globals.bsqutxo_dict[key][u'spent_info']=j
             else:
-                squ_globals.squo_dict[key]={u'spent_info':j, u'txid':txid, u'index':index, u'validated':False}
-                squ_globals.squutxo_dict[key]={u'spent_info':j, u'txid':txid, u'index':index, u'validated':False}
+                bsq_globals.bsqo_dict[key]={u'spent_info':j, u'txid':txid, u'index':index, u'validated':False}
+                bsq_globals.bsqutxo_dict[key]={u'spent_info':j, u'txid':txid, u'index':index, u'validated':False}
             if j!=None:
                 spent_txid=j[u'txid']
                 spent_height=j[u'height']
@@ -187,8 +187,8 @@ def recursive_get_spent_tx(spent_dict, max_height):
                 for i in range(n):
                     recursive_get_spent_tx({u'txid': spent_txid, u'index': int(i), u'height':spent_height}, max_height)
                     #tmp_key=spent_txid+u':'+str(i)
-                    #if squ_globals.squutxo_dict[tmp_key][u'spent_info']!=None:
-                        #del squ_globals.squutxo_dict[tmp_key]
+                    #if bsq_globals.bsqutxo_dict[tmp_key][u'spent_info']!=None:
+                        #del bsq_globals.bsqutxo_dict[tmp_key]
 
     except Exception as e:
         print "oops (recursive):",e

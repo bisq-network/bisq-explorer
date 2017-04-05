@@ -13,7 +13,7 @@ import simplejson
 import time
 import git
 import os
-import squ_globals
+import bsq_globals
 
 def run_command(command, input_str=None, ignore_stderr=False):
     if ignore_stderr:
@@ -50,7 +50,7 @@ def error(msg):
     if func_name.startswith('parse'):
         # store last parsed block
         try:
-            last_block_msg='('+str(squ_globals.last_block)+')'
+            last_block_msg='('+str(bsq_globals.last_block)+')'
         except IOError:
             pass
     print '[E] '+func_name+': '+str(msg)+last_block_msg
@@ -65,7 +65,7 @@ def info(msg):
     print '[I] '+func_name+': '+str(msg)
 
 def debug(msg):
-    if squ_globals.d == True:
+    if bsq_globals.d == True:
         func_name='unknown'
         try:
             func_name=inspect.stack()[1][3]

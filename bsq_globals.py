@@ -16,14 +16,14 @@ def init():
     global rpc_connection
     global last_block
     global d # debug mode
-    global squutxo_dict
-    global squo_dict
+    global bsqutxo_dict
+    global bsqo_dict
     global tx_dict
     global addr_dict
     last_block=0
     rpc_connection=AuthServiceProxy("http://%s:%s@127.0.0.1:8332"%(rpc_user, rpc_password))
-    squutxo_dict={}
-    squo_dict={}
+    bsqutxo_dict={}
+    bsqo_dict={}
     tx_dict={}
     addr_dict={}
     d=False
