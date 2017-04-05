@@ -175,10 +175,8 @@ def recursive_get_spent_tx(spent_dict, max_height):
             utxo_visited[key]=True
             if bsq_globals.bsqo_dict.has_key(key):
                 bsq_globals.bsqo_dict[key][u'spent_info']=j
-                bsq_globals.bsqutxo_dict[key][u'spent_info']=j
             else:
                 bsq_globals.bsqo_dict[key]={u'spent_info':j, u'txid':txid, u'index':index, u'validated':False}
-                bsq_globals.bsqutxo_dict[key]={u'spent_info':j, u'txid':txid, u'index':index, u'validated':False}
             if j!=None:
                 spent_txid=j[u'txid']
                 spent_height=j[u'height']
@@ -186,9 +184,76 @@ def recursive_get_spent_tx(spent_dict, max_height):
                 n=len(sj[u'vout'])
                 for i in range(n):
                     recursive_get_spent_tx({u'txid': spent_txid, u'index': int(i), u'height':spent_height}, max_height)
-                    #tmp_key=spent_txid+u':'+str(i)
-                    #if bsq_globals.bsqutxo_dict[tmp_key][u'spent_info']!=None:
-                        #del bsq_globals.bsqutxo_dict[tmp_key]
 
     except Exception as e:
         print "oops (recursive):",e
+
+
+def update_outputs_for_tx(txid, genesis=False):
+    tx_json=get_tx_json(txid)
+
+
+    if not bsq_globals.tx_dict.has_key(txid):
+        bsq_globals.tx_dict[txid]=tx_json
+
+    # run over all outputs and add them to bsqutxo_dict
+    index=0
+    for o in tx_json['vout']:
+        # The format is:
+        # {u'valueSat': 700000,
+        # u'scriptPubKey': {u'reqSigs': 1, u'hex': u'76a914d95933afd27f70537bdd4eab383e8f6f91d72be788ac',
+        # u'addresses': [u'1LpEVV576FBUvEbRfb5qPkngXoNfW1EgfM'],
+        # u'asm': u'OP_DUP OP_HASH160 d95933afd27f70537bdd4eab383e8f6f91d72be7 OP_EQUALVERIFY OP_CHECKSIG',
+        # u'type': u'pubkeyhash'},
+        # u'value': Decimal('0.00700000'),
+        # u'n': 0}
+
+        # remarks:
+        # addresses list might be longer than one - e.g. for BIP11
+
+        bsqutxo_item=o # the item is the parsed output
+        # add missing fields to parsed output
+
+        if tx_json.has_key('height'):
+            bsqutxo_item[u'height']=tx_json['height']
+        else:
+            if tx_json.has_key('block'):
+                bsqutxo_item[u'height']=tx_json['block']
+        bsqutxo_item[u'tx_time']=str(tx_json['blocktime'])+'000'
+        bsqutxo_item[u'coinBase']=False # Zero chance for a SQU in a block generation tx
+
+        bsqutxo_item[u'output_index']=index
+        bsqutxo_item[u'status']="done"
+        bsqutxo_item[u'invalid']=False
+
+        if genesis==True:
+            # mark as SQU genesis address
+            bsqutxo_item[u'isIssuanceTx']=True # SQU directly from a genesis address
+
+            # get amount of SQU
+            bsqutxo_item[u'bsq_amount']=o[u'valueSat']
+
+            # add spent info
+            bsqutxo_item[u'spent_info']=get_spent_json(txid,index)
+
+            # icon
+            bsqutxo_item[u'icon']="exodus"
+            bsqutxo_item[u'icon_text']="Genesis"
+            bsqutxo_item[u'color']="bgc-new"
+            bsqutxo_item[u'tx_type_str']="Genesis transaction"
+        else:
+            # icon
+            bsqutxo_item[u'icon']="simplesend"
+            bsqutxo_item[u'icon_text']="Value transfer"
+            bsqutxo_item[u'color']="bgc-new"
+            bsqutxo_item[u'tx_type_str']="Token send"
+
+        bsqutxo_item[u'transaction_version']='0001'
+
+        # add the item to a dict with key txid:index
+        key=unicode(txid+':'+str(index))
+        if bsq_globals.bsqo_dict.has_key(key):
+            bsq_globals.bsqo_dict[key].update(bsqutxo_item)  # unspent dict
+        else:
+            bsq_globals.bsqo_dict[key]=bsqutxo_item
+        index+=1

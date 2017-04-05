@@ -18,158 +18,18 @@ import bsq_globals
 
 bsq_globals.init()
 
-genesis_txids_list=['10085081b3c7eb3d15bc45eab9f8c4bd17a043f92928ea321f2705370bd44865','9249e46293eac9b43d43468035ca41d48bf92ff07871e07e7f9bb4aecdfc2d8c','6d39423c64952b9d62b945f2496055d292fe10d7531d7069e84e2e76a7b8b836']
-
-#genesis_txids_list=['10085081b3c7eb3d15bc45eab9f8c4bd17a043f92928ea321f2705370bd44865','c3f5892c6e0c23818fc593f364acc2a0a0938463c8b203690b7db2a2ca9d63e2','a95c0953fc8c855ff3f950624d49bd37f44af11959b76d96fa751c669a5549ca']
-
-#genesis_txids_list=['10085081b3c7eb3d15bc45eab9f8c4bd17a043f92928ea321f2705370bd44865','c3f5892c6e0c23818fc593f364acc2a0a0938463c8b203690b7db2a2ca9d63e2','a95c0953fc8c855ff3f950624d49bd37f44af11959b76d96fa751c669a5549ca','cc3807e818980efcc6989fe98b4c2273dee4bf43427e078509f131395ddcf1ce']
-#genesis_txids_list=['10085081b3c7eb3d15bc45eab9f8c4bd17a043f92928ea321f2705370bd44865','9d897294bc60ccbdc79bee4feb5afc88e3845686252ea121a76b9c72e948b200']
-#genesis_txids_list=['10085081b3c7eb3d15bc45eab9f8c4bd17a043f92928ea321f2705370bd44865']
-#genesis_txids_list=['7200f9530a1a4fb7ceacd00de1c32bd2dd720ce51d82b78d5a164e0791055ab6']
-
-#max_height=443660
-#max_height=444444
-#max_height=444000
-#max_height=443500
-#max_height=455555
-max_height=get_height()
-
-blocks_chunk_size=1000
-
-
-# preparing initial bsqutxo from genesis (and compensation requests)
-for genesis_txid in genesis_txids_list:
-    update_outputs_for_tx(genesis_txid, True)
-
-
-print "running ..."
-
-chunk_num=1
-# get the starting height (look for minimal height among all outputs)
-parse_height=max_height
-for k in bsq_globals.bsqutxo_dict.keys():
-    if bsq_globals.bsqutxo_dict[k][u'height'] != 0:
-        parse_height=min(parse_height,bsq_globals.bsqutxo_dict[k][u'height'])
-
-print "Starting height is:",parse_height, "and chunk size is:", blocks_chunk_size
-
-
-# run in height chunks generate:
-# 1. updated bsqutxo set until each height chunk, based on existing bsqutxo set
-# 2. validate bsqutxo set, and drop invalid bsqutxo
-# repeat for next chunk until max_height
-
-while parse_height <= max_height:
-
-    # the closest next "round" chunk
-    parse_height=parse_height+blocks_chunk_size-parse_height%blocks_chunk_size
-
-    keys=bsq_globals.bsqutxo_dict.keys()
-    keys.sort()
-
-    print
-    print "#######################"
-    print "##### upto",parse_height,"#####"
-    print "#######################"
-
-    for k in keys:
-
-        # run recursively from each genesis output
-        current={}
-        txid,index=k.split(':')
-        if bsq_globals.bsqutxo_dict[k].has_key(u'height'):
-            height=bsq_globals.bsqutxo_dict[k][u'height']
-        else:
-            height=0
-        recursive_get_spent_tx({u'txid': txid, u'index': int(index), u'height':height}, parse_height)
-
-    # validate (drop invalid bsqutxo)
-    outputs_list=bsq_globals.bsqutxo_dict.keys()
-    outputs_list.sort()
-    print "--------------------------------------------------------------------------------"
-    print "starting with output set:",outputs_list
-    print "--------------------------------------------------------------------------------"
-    for current_key in outputs_list:
-        #print current_key
-        # skip calculation/validation of bsq_amount input if already exists
-        if bsq_globals.bsqutxo_dict[current_key].has_key(u'bsq_amount'):
-            #print "already bsq_amount there:",bsq_globals.bsqutxo_dict[current_key][u'bsq_amount'],"from:",current_key
-            bsq_input=bsq_globals.bsqutxo_dict[current_key][u'bsq_amount']
-        else:
-            txid,index=current_key.split(':')
-            sj=get_tx_json(txid)
-            outputs_len=len(sj[u'vout'])
-            inputs_len=len(sj[u'vin'])
-            print "#####"
-            print txid, "inputs:", inputs_len, "outputs:", outputs_len
-            # sum bsq from all inputs
-            bsq_input=0
-            for i in range(inputs_len):
-                input_txid=sj[u'vin'][i][u'txid']
-                input_index=sj[u'vin'][i][u'vout']
-                input_key=unicode(input_txid+':'+str(input_index))
-                print "Calculating inputs from:",input_key
-                if bsq_globals.bsqutxo_dict.has_key(input_key):
-                    try:
-                        print "Added SQU to input:",bsq_globals.bsqutxo_dict[input_key][u'bsq_amount']
-                        bsq_input+=bsq_globals.bsqutxo_dict[input_key][u'bsq_amount']
-                    except KeyError:
-                        print "No SQU field on input key:",input_key
-                        pass
-                else:
-                    print "No SQU on:",input_key
-                    pass
-
-            print "total bsq_input for",txid,"is",bsq_input
-            #print "-----"
-
-            bsq_input_left=int(bsq_input)
-            for o in range(outputs_len):
-                #print o
-                output_key=unicode(txid+':'+str(o))
-                requested_bsq_output=int(sj[u'vout'][o][u'valueSat'])
-                if requested_bsq_output <= bsq_input_left: # enough SQU to fund new output
-                    try:
-                        bsq_globals.bsqo_dict[output_key][u'bsq_amount']=requested_bsq_output
-                        bsq_globals.bsqo_dict[output_key][u'validated']=True
-                        bsq_globals.bsqutxo_dict[output_key][u'bsq_amount']=requested_bsq_output
-                        bsq_globals.bsqutxo_dict[output_key][u'validated']=True
-                        bsq_input_left-=requested_bsq_output
-                        print "just used",requested_bsq_output,"granted to",output_key
-                    except KeyError as e:
-                        print "!!!!!!!!!!!!!!!!! KeyError",e
-                    #print bsq_globals.bsqutxo_dict[output_key]
-                else:
-                    print "Out of SQU. Ignore request:",requested_bsq_output,"left:",bsq_input_left
-                    #print bsq_globals.bsqutxo_dict[output_key]
-                    try:
-                        bsq_globals.bsqo_dict[output_key][u'bsq_amount']=0
-                        bsq_globals.bsqo_dict[output_key][u'validated']=True
-                        bsq_globals.bsqutxo_dict[output_key][u'bsq_amount']=0
-                        bsq_globals.bsqutxo_dict[output_key][u'validated']=True
-                    except KeyError as e:
-                        print "!!!!!!!!!!!!!!111 KeyError",e
-                    bsq_input_left=0 # first failure means the rest SQU are lost
-
-    chunk_num+=1
-
-
-
-atomic_json_dump(bsq_globals.bsqo_dict,'www/general/bsq_txos.json', add_brackets=False)
-
-sys.exit(0)
-
 bsq_globals.bsqo_dict=load_json_file('www/general/bsq_txos.json')
+
 
 for k in bsq_globals.bsqo_dict.keys():
     if bsq_globals.bsqo_dict[k][u'bsq_amount']==0:
         bsq_globals.bsqo_dict.pop(k)
-        bsq_globals.bsqutxo_dict.pop(k)
         print "drop:",k
         continue
-    if not bsq_globals.bsqo_dict[k].has_key(u'scriptPubKey'):
-        txid=k.split(':')[0]
-        update_outputs_for_tx(txid)
+
+    txid=k.split(':')[0]
+    genesis=bsq_globals.bsqo_dict[k].has_key(u'icon') and bsq_globals.bsqo_dict[k][u'icon']=='exodus'
+    update_outputs_for_tx(txid, genesis)
 
     # that's for address on the sending side
     is_spent=(bsq_globals.bsqo_dict[k][u'spent_info']!=None)
@@ -188,6 +48,7 @@ for k in bsq_globals.bsqo_dict.keys():
                 bsq_globals.addr_dict[a][u'stxo']={k:bsq_globals.bsqo_dict[k]}
 
     atomic_json_dump(bsq_globals.bsqo_dict[k],'www/txo/'+k+'.json')
+
 
 for k in bsq_globals.tx_dict.keys():
      print "################"
@@ -357,11 +218,3 @@ for k in ["Existing amount", "Minted amount", "Burnt amount", "Addresses", "Unsp
 
 atomic_json_dump(stats_json,'www/general/stats.json', add_brackets=False)
 
-#for k in bsq_globals.bsqutxo_dict.keys():
-#    if bsq_globals.bsqutxo_dict[k][u'spent_info']==None:
-#        print k
-
-
-#print '#######################################'
-#pprint(bsq_globals.bsqutxo_dict)
-#print bsq_globals.bsqo_dict.keys()

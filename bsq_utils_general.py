@@ -150,5 +150,5 @@ def load_json_file(filename):
     f=open(filename,'r')
     json_data=f.read()
     f.close()
-    data=simplejson.loads(json_data)
+    data=simplejson.loads(unicode(json_data))
     return data
