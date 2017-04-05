@@ -28,7 +28,7 @@ for k in bsq_globals.bsqo_dict.keys():
         continue
 
     txid=k.split(':')[0]
-    genesis=bsq_globals.bsqo_dict[k].has_key(u'icon') and bsq_globals.bsqo_dict[k][u'icon']=='exodus'
+    genesis=bsq_globals.bsqo_dict[k].has_key(u'icon') and bsq_globals.bsqo_dict[k][u'icon']=='genesis'
     update_outputs_for_tx(txid, genesis)
 
     # that's for address on the sending side
@@ -144,7 +144,7 @@ for a in bsq_globals.addr_dict.keys():
         utxo[u'outputIndex']=outputIndex
         utxo_list.append(utxo)
         balance+=utxo[u'bsqAmount']
-        if utxo[u'icon']=='exodus':
+        if utxo[u'icon']=='genesis':
             genesis+=utxo[u'bsqAmount']
             genesis_tx+=1
         received_num+=1
@@ -155,7 +155,7 @@ for a in bsq_globals.addr_dict.keys():
         stxo[u'outputIndex']=outputIndex
         stxo_list.append(stxo)
         spent+=stxo[u'bsqAmount']
-        if stxo[u'icon']=='exodus':
+        if stxo[u'icon']=='genesis':
             genesis+=stxo[u'bsqAmount']
             genesis_tx+=1
         spent_num+=1

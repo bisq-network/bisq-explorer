@@ -25,10 +25,10 @@ function AdressController($scope, $http) {
 
     $scope.boughtViaExodusSum = function () {
 
-        var length = $scope.addressInformation.exodus_transactions.length;
+        var length = $scope.addressInformation.genesis_transactions.length;
         var sum = 0;
         for (var i = 0; i < length; i++) {
-            sum += parseFloat($scope.addressInformation.exodus_transactions[i].amount);
+            sum += parseFloat($scope.addressInformation.genesis_transactions[i].amount);
 
         }
         return sum;
@@ -62,8 +62,8 @@ function AdressController($scope, $http) {
         return sum;
     }
 
-    $scope.exodusTransCount = function () {
-        var length = $scope.addressInformation.exodus_transactions.length;
+    $scope.genesisTransCount = function () {
+        var length = $scope.addressInformation.genesis_transactions.length;
         var sum = 0;
         for (var i = 0; i < length; i++) {
             sum++;

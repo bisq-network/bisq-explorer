@@ -38,7 +38,6 @@ def update_tx_dict(txid, *arguments, **keywords):
     if not tx_dict.has_key(txid):
         # no - so create a new one
         # remark: loading all tx for that txid
-        # for simplesend which is exodus, the last one is simplesend (#1)
         tx_dict[txid]=load_dict_from_file('tx/'+txid+'.json', all_list=True)
 
     # get the update_fs from tx_dict for that tx
@@ -236,7 +235,7 @@ def update_outputs_for_tx(txid, genesis=False):
             bsqutxo_item[u'spentInfo']=get_spent_json(txid,index)
 
             # icon
-            bsqutxo_item[u'icon']="exodus"
+            bsqutxo_item[u'icon']="genesis"
             bsqutxo_item[u'iconText']="Genesis"
             bsqutxo_item[u'color']="bgc-new"
             bsqutxo_item[u'txTypeStr']="Genesis transaction"

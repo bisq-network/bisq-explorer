@@ -194,7 +194,7 @@
 													data-content="{{txo.iconText}}" rel="popover"
 													data-placement="bottom"
 													alt="" />
-                                                <span ng-switch-when="exodus">
+                                                <span ng-switch-when="genesis">
                                                     <a ng-href='txo.html?txo={{transactionInformation.vin[0].txid}}:{{txo.outputIndex}}'>{{transactionInformation.vin[0].txid | characters:10}}:{{txo.outputIndex}}
                                                     </a>
                                                 </span>
@@ -236,7 +236,7 @@
                                                     <a ng-href='txo.html?txo={{txo.txid}}:{{txo.index}}'>{{txo.txid | characters:10}}:{{txo.index}}
                                                     </a>
                                                 </span>
-                                                <span ng-switch-when="exodus">
+                                                <span ng-switch-when="genesis">
                                                     <a ng-href='txo.html?txo={{transactionInformation.txid}}:{{txo.outputIndex}}'>{{transactionInformation.txid | characters:10}}:{{txo.outputIndex}}
                                                     </a>
                                                 </span>
