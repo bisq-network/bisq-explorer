@@ -91,7 +91,7 @@
                                           <span class="pull-right">{{transactionInformation.txo_url_param}}</span>
                                        </span>
                                        <span ng-switch-when="simplesend">
-                                           <span class="pull-right">{{transactionInformation.txid}}:{{transactionInformation.output_index}}</span></td>
+                                           <span class="pull-right">{{transactionInformation.txid}}:{{transactionInformation.outputIndex}}</span></td>
                                        </span>
                                     </td>
                                  </td>
@@ -107,7 +107,7 @@
                                  <tbody>
                                     <tr>
                                        <td>Index</td>
-                                       <td>{{transactionInformation.output_index}}</td>
+                                       <td>{{transactionInformation.outputIndex}}</td>
                                     </tr>
                                     <tr>
                                        <td>Receive Tx</td>
@@ -115,7 +115,7 @@
                                     </tr>
                                     <tr>
                                        <td>Spent Tx</td>
-                                       <td><a ng-href="tx.html?tx={{transactionInformation.spent_info.txid}}">{{transactionInformation.spent_info.txid}}</a></td>
+                                       <td><a ng-href="tx.html?tx={{transactionInformation.spentInfo.txid}}">{{transactionInformation.spentInfo.txid}}</a></td>
                                     </tr>
                                     <tr>
                                        <td>Status</td>
@@ -127,7 +127,7 @@
                                     </tr>
                                     <tr>
                                        <td>BSQ Amount</td>
-                                       <td>{{transactionInformation.bsq_amount}}</td>
+                                       <td>{{transactionInformation.bsqAmount}}</td>
                                     </tr>
                                  </tbody>
                               </table>
@@ -142,10 +142,10 @@
                                           <img class="round-corner {{transactionInformation.color}} iconPopupInit"
                                              src="ico/{{transactionInformation.icon}}24t.png"
                                              ng-init="createIconPopup()"
-                                             data-content="{{transactionInformation.icon_text}}" rel="popover"
+                                             data-content="{{transactionInformation.iconText}}" rel="popover"
                                              data-placement="bottom"
                                              alt="" />
-                                          {{transactionInformation.tx_type_str}}
+                                          {{transactionInformation.txTypeStr}}
                                        </td>
                                     </tr>
                                     <tr>
@@ -154,11 +154,11 @@
                                     </tr>
                                     <tr>
                                        <td>Block time</td>
-                                       <td>{{transactionInformation.tx_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                       <td>{{transactionInformation.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     </tr>
                                     <tr>
                                        <td>Spent in block</td>
-                                       <td>{{transactionInformation.spent_info.height}}</td>
+                                       <td>{{transactionInformation.spentInfo.height}}</td>
                                     </tr>
                                     <tr>
                                        <td>Valid</td>

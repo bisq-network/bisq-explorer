@@ -109,19 +109,19 @@
                                     </tr>
                                     <tr>
                                        <td>Compensation Request</td>
-                                       <td>{{addressInformation.total_exodus}}</td>
+                                       <td>{{addressInformation.totalGenesis}}</td>
                                     </tr>
                                     <tr>
                                        <td>BSQ received</td>
-                                       <td>{{addressInformation.total_received}}</td>
+                                       <td>{{addressInformation.totalReceived}}</td>
                                     </tr>
                                     <tr>
                                        <td>BSQ spent</td>
-                                       <td>{{addressInformation.total_spent}}</td>
+                                       <td>{{addressInformation.totalSpent}}</td>
                                     </tr>
                                     <tr>
                                        <td>BSQ burnt</td>
-                                       <td>{{addressInformation.total_burnt}}</td>
+                                       <td>{{addressInformation.totalBurnt}}</td>
                                     </tr>
                                  </tbody>
                               </table>
@@ -132,24 +132,24 @@
                                  <tbody>
                                     <tr>
                                        <td>Reserved</td>
-                                       <td>{{addressInformation.total_reserved}}
+                                       <td>{{addressInformation.totalReserved}}
                                        </td>
                                     </tr>
                                     <tr>
                                        <td>Compensation transactions</td>
-                                       <td>{{addressInformation.exodus_tx_num}}</td>
+                                       <td>{{addressInformation.genesisTxNum}}</td>
                                     </tr>
                                     <tr>
                                        <td>Incoming BSQ transactions</td>
-                                       <td>{{addressInformation.received_outputs_num}}</td>
+                                       <td>{{addressInformation.receivedOutputsNum}}</td>
                                     </tr>
                                     <tr>
                                        <td>Outgoing BSQ transactions</td>
-                                       <td>{{addressInformation.spent_outputs_num}}</td>
+                                       <td>{{addressInformation.spentOutputsNum}}</td>
                                     </tr>
                                     <tr>
                                        <td>Burning BSQ transactions</td>
-                                       <td>{{addressInformation.burnt_num}}</td>
+                                       <td>{{addressInformation.burntNum}}</td>
                                     </tr>
                                  </tbody>
                               </table>
@@ -173,13 +173,14 @@
                                           <img class="icon24 round-corner {{utxo.color}} iconPopupInit"
                                              src="ico/{{utxo.icon}}24t.png"
                                              ng-init="createIconPopup()"
-                                             data-content="{{utxo.icon_text}}" rel="popover"
+                                             data-content="{{utxo.iconText}}" rel="popover"
                                              data-placement="bottom"
                                              alt="" />
-                                          <a ng-href="txo.html?txo={{utxo.txid}}:{{utxo.output_index}}">{{utxo.txid | characters:10}}:{{utxo.output_index}}</a>
+                                          <a ng-href="txo.html?txo={{utxo.txid}}:{{utxo.outputIndex}}">{{utxo.txid | characters:10}}:{{utxo.outputIndex}}</a>
+
                                        </td>
-                                       <td>{{utxo.bsq_amount}}</td>
-                                       <td>{{utxo.tx_time | date:'dd MMM HH:mm'}}</td>
+                                       <td>{{utxo.bsqAmount}}</td>
+                                       <td>{{utxo.time | date:'dd MMM HH:mm'}}</td>
                                     </tr>
                                  </tbody>
                               </table>
@@ -203,13 +204,13 @@
                                           <img class="icon24 round-corner {{stxo.color}} iconPopupInit"
                                              src="ico/{{stxo.icon}}24t.png"
                                              ng-init="createIconPopup()"
-                                             data-content="{{stxo.icon_text}}" rel="popover"
+                                             data-content="{{stxo.iconText}}" rel="popover"
                                              data-placement="bottom"
                                              alt="" />
-                                          <a ng-href="txo.html?txo={{stxo.txid}}:{{stxo.output_index}}">{{stxo.txid | characters:10}}:{{stxo.output_index}}</a>
+                                          <a ng-href="txo.html?txo={{stxo.txid}}:{{stxo.outputIndex}}">{{stxo.txid | characters:10}}:{{stxo.outputIndex}}</a>
                                        </td>
-                                       <td>{{stxo.bsq_amount}}</td>
-                                       <td>{{stxo.tx_time | date:'dd MMM HH:mm'}}</td>
+                                       <td>{{stxo.bsqAmount}}</td>
+                                       <td>{{stxo.time | date:'dd MMM HH:mm'}}</td>
                                     </tr>
                                  </tbody>
                               </table>

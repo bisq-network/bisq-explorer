@@ -99,7 +99,7 @@
                                        <img class="icon24 round-corner {{trans.color}} iconPopupInit"
                                           src="ico/{{trans.icon}}24t.png"
                                           ng-init="createIconPopup()"
-                                          data-content="{{trans.icon_text}}" rel="popover"
+                                          data-content="{{trans.iconText}}" rel="popover"
                                           data-placement="bottom"
                                           alt=""
                                           />
@@ -118,16 +118,16 @@
                                     </td>
                                     <td ng-switch on="trans.icon">
                                        <span ng-switch-when="simplesend">
-                                       <a href='Address.html?addr={{trans.to_address}}'>{{trans.to_address}}</a>
+                                       <a href='Address.html?addr={{trans.toAddress}}'>{{trans.toAddress}}</a>
                                        </span>
                                        <span ng-switch-when="genesis">
-                                       <a href='Address.html?addr={{trans.to_address}}'>{{trans.to_address}}</a>
+                                       <a href='Address.html?addr={{trans.toAddress}}'>{{trans.toAddress}}</a>
                                        </span>
                                        <span ng-switch-default>
                                        </span>
                                     </td>
-                                    <td>{{trans.bsq_amount}}</td>
-                                    <td>{{trans.tx_time | date:'dd MMM HH:mm'}}</td>
+                                    <td>{{trans.bsqAmount}}</td>
+                                    <td>{{trans.time | date:'dd MMM HH:mm'}}</td>
                                  </tr>
                               </tbody>
                            </table>

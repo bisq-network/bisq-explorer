@@ -22,7 +22,7 @@ bsq_globals.bsqo_dict=load_json_file('www/general/bsq_txos.json')
 
 
 for k in bsq_globals.bsqo_dict.keys():
-    if bsq_globals.bsqo_dict[k][u'bsq_amount']==0:
+    if bsq_globals.bsqo_dict[k][u'bsqAmount']==0:
         bsq_globals.bsqo_dict.pop(k)
         print "drop:",k
         continue
@@ -32,7 +32,7 @@ for k in bsq_globals.bsqo_dict.keys():
     update_outputs_for_tx(txid, genesis)
 
     # that's for address on the sending side
-    is_spent=(bsq_globals.bsqo_dict[k][u'spent_info']!=None)
+    is_spent=(bsq_globals.bsqo_dict[k][u'spentInfo']!=None)
     dest_addrs=bsq_globals.bsqo_dict[k][u'scriptPubKey']['addresses']
     for a in dest_addrs:
         if bsq_globals.addr_dict.has_key(a):
@@ -65,7 +65,7 @@ for k in bsq_globals.tx_dict.keys():
          txo_id=str(tx_data[u'vin'][i][u'txid'])+':'+str(tx_data[u'vin'][i][u'vout'])
          print i,k,txo_id
          # are there bsq on that txo?
-         if bsq_globals.bsqo_dict.has_key(txo_id) and bsq_globals.bsqo_dict[txo_id].has_key(u'bsq_amount') and bsq_globals.bsqo_dict[txo_id][u'bsq_amount'] > 0:
+         if bsq_globals.bsqo_dict.has_key(txo_id) and bsq_globals.bsqo_dict[txo_id].has_key(u'bsqAmount') and bsq_globals.bsqo_dict[txo_id][u'bsqAmount'] > 0:
              vin_keys_list.append(txo_id)
              # that's for addresses on the receiving side
 #             src_addrs=bsq_globals.bsqo_dict[txo_id][u'scriptPubKey']['addresses']
@@ -84,7 +84,7 @@ for k in bsq_globals.tx_dict.keys():
      try:
          for vik in vin_keys_list:
              vin_list.append(bsq_globals.bsqo_dict[vik])
-             bsq_received+=bsq_globals.bsqo_dict[vik][u'bsq_amount']
+             bsq_received+=bsq_globals.bsqo_dict[vik][u'bsqAmount']
      except KeyError:
          print "KeyError:",vik
 
@@ -92,18 +92,18 @@ for k in bsq_globals.tx_dict.keys():
      for i in range(len(tx_data[u'vout'])):
          vok=k+':'+str(i)
          try:
-             if bsq_globals.bsqo_dict[vok].has_key(u'bsq_amount') and bsq_globals.bsqo_dict[vok][u'bsq_amount'] > 0:
+             if bsq_globals.bsqo_dict[vok].has_key(u'bsqAmount') and bsq_globals.bsqo_dict[vok][u'bsqAmount'] > 0:
                  vout_list.append(bsq_globals.bsqo_dict[vok])
-                 bsq_sent+=bsq_globals.bsqo_dict[vok][u'bsq_amount']
+                 bsq_sent+=bsq_globals.bsqo_dict[vok][u'bsqAmount']
          except KeyError:
              print "No bsq in:",vok
              pass
 
      bsq_burnt=bsq_received-bsq_sent
 
-     bsq_globals.tx_dict[k][u'bsq_received']=bsq_received
-     bsq_globals.tx_dict[k][u'bsq_sent']=bsq_sent
-     bsq_globals.tx_dict[k][u'bsq_burnt']=bsq_burnt
+     bsq_globals.tx_dict[k][u'bsqReceived']=bsq_received
+     bsq_globals.tx_dict[k][u'bsqSent']=bsq_sent
+     bsq_globals.tx_dict[k][u'bsqBurnt']=bsq_burnt
 
      atomic_json_dump([vin_list,vout_list],"www/txtxos/txtxos-"+k+'.json', add_brackets=False)
      atomic_json_dump(bsq_globals.tx_dict[k],'www/tx/'+k+'.json')
@@ -115,7 +115,7 @@ summary_list=[]
 
 for t in sorted_tx_list:
     try:
-        summary_list.append({u'txid':t[u'txid'], u'tx_time':str(t[u'time'])+'000', u'bsq_amount':t[u'bsq_sent'], u'to_address':t[u'vout'][0][u'scriptPubKey'][u'addresses'][0], u'icon':t[u'vout'][0][u'icon'], u'color':t[u'vout'][0][u'color'], u'icon_text':t[u'vout'][0][u'icon_text']})
+        summary_list.append({u'txid':t[u'txid'], u'time':str(t[u'time'])+'000', u'bsqAmount':t[u'bsqSent'], u'toAddress':t[u'vout'][0][u'scriptPubKey'][u'addresses'][0], u'icon':t[u'vout'][0][u'icon'], u'color':t[u'vout'][0][u'color'], u'iconText':t[u'vout'][0][u'iconText']})
     except KeyError:
         print "BOOOOOOOOOOOOOOOOOOO!"
         print t
@@ -139,24 +139,24 @@ for a in bsq_globals.addr_dict.keys():
     genesis_tx=0
     for u in bsq_globals.addr_dict[a][u'utxo'].items():
         utxo=u[1]
-        txid,output_index=u[0].split(':')
+        txid,outputIndex=u[0].split(':')
         utxo[u'txid']=txid
-        utxo[u'output_index']=output_index
+        utxo[u'outputIndex']=outputIndex
         utxo_list.append(utxo)
-        balance+=utxo[u'bsq_amount']
+        balance+=utxo[u'bsqAmount']
         if utxo[u'icon']=='exodus':
-            genesis+=utxo[u'bsq_amount']
+            genesis+=utxo[u'bsqAmount']
             genesis_tx+=1
         received_num+=1
     for s in bsq_globals.addr_dict[a][u'stxo'].items():
         stxo=s[1]
-        txid,output_index=s[0].split(':')
+        txid,outputIndex=s[0].split(':')
         stxo[u'txid']=txid
-        stxo[u'output_index']=output_index
+        stxo[u'outputIndex']=outputIndex
         stxo_list.append(stxo)
-        spent+=stxo[u'bsq_amount']
+        spent+=stxo[u'bsqAmount']
         if stxo[u'icon']=='exodus':
-            genesis+=stxo[u'bsq_amount']
+            genesis+=stxo[u'bsqAmount']
             genesis_tx+=1
         spent_num+=1
 
@@ -166,8 +166,8 @@ for a in bsq_globals.addr_dict.keys():
     for s in stxos:
         txs.add(s.split(':')[0])
     for tx in txs:
-        if bsq_globals.tx_dict[tx][u'bsq_burnt']>0:
-            burnt+=bsq_globals.tx_dict[tx][u'bsq_burnt']
+        if bsq_globals.tx_dict[tx][u'bsqBurnt']>0:
+            burnt+=bsq_globals.tx_dict[tx][u'bsqBurnt']
             burnt_num+=1
 
     addr_json={u'address':a}
@@ -176,36 +176,36 @@ for a in bsq_globals.addr_dict.keys():
     addr_json.update({u'reserved':0})
 
     addr_json.update({u'balance':balance})
-    addr_json.update({u'total_exodus':genesis})
-    addr_json.update({u'total_received':balance+spent})
-    addr_json.update({u'total_spent':spent})
-    addr_json.update({u'total_burnt':burnt})
+    addr_json.update({u'totalGenesis':genesis})
+    addr_json.update({u'totalReceived':balance+spent})
+    addr_json.update({u'totalSpent':spent})
+    addr_json.update({u'totalBurnt':burnt})
 
-    addr_json.update({u'total_reserved':0})
-    addr_json.update({u'exodus_tx_num':genesis_tx})
-    addr_json.update({u'received_outputs_num':received_num+spent_num})
-    addr_json.update({u'spent_outputs_num':spent_num})
-    addr_json.update({u'burnt_num':burnt_num})
- 
+    addr_json.update({u'totalReserved':0})
+    addr_json.update({u'genesisTxNum':genesis_tx})
+    addr_json.update({u'receivedOutputsNum':received_num+spent_num})
+    addr_json.update({u'spentOutputsNum':spent_num})
+    addr_json.update({u'burntNum':burnt_num})
+
     atomic_json_dump(addr_json,'www/addr/'+a+'.json', add_brackets=False)
 
 
 for tx in bsq_globals.tx_dict.keys():
-    if bsq_globals.tx_dict[tx][u'vout'][0][u'icon_text']=="Genesis":
-        bsq_globals.stats_dict['Minted amount']+=bsq_globals.tx_dict[tx][u'bsq_sent']
-    if bsq_globals.tx_dict[tx][u'bsq_burnt']>0:
-        bsq_globals.stats_dict['Burnt amount']+=bsq_globals.tx_dict[tx][u'bsq_burnt']
+    if bsq_globals.tx_dict[tx][u'vout'][0][u'iconText']=="Genesis":
+        bsq_globals.stats_dict['Minted amount']+=bsq_globals.tx_dict[tx][u'bsqSent']
+    if bsq_globals.tx_dict[tx][u'bsqBurnt']>0:
+        bsq_globals.stats_dict['Burnt amount']+=bsq_globals.tx_dict[tx][u'bsqBurnt']
 
 bsq_globals.stats_dict['Existing amount']=bsq_globals.stats_dict['Minted amount']-bsq_globals.stats_dict['Burnt amount']
 
 for txo in bsq_globals.bsqo_dict.keys():
     try:
-        if bsq_globals.bsqo_dict[txo][u'spent_info']==None:
+        if bsq_globals.bsqo_dict[txo][u'spentInfo']==None:
             bsq_globals.stats_dict['Unspent TXOs']+=1
         else:
             bsq_globals.stats_dict['Spent TXOs']+=1
     except KeyError:
-        print "Missing spent_info field! ",txo
+        print "Missing spentInfo field! ",txo
 
 bsq_globals.stats_dict['Addresses']=len(bsq_globals.addr_dict.keys())
 bsq_globals.stats_dict['Price']=0.00001234

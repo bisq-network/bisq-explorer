@@ -17,16 +17,15 @@ utxo_visited={}
 tx_properties=\
     ['txid', 'time', \
      'height', \
-     'outputs_list', \
-     'is_issuance_tx', \
-     'bsq_sent', 'bsq_received', 'bsq_burnt', \
+     'isIssuanceTx', \
+     'bsq_sent', 'bsqReceived', 'bsqBurnt', \
      'addresses', \
-     'icon', 'icon_text', 'color', \
-     'details', 'tx_type_str', \
+     'icon', 'iconText', 'color', \
+     'details', 'txTypeStr', \
      'status']
 
 output_properties=\
-    [u'txid', u'index', u'bsq_amount', u'spent_info', u'validated']
+    [u'txid', u'index', u'bsqAmount', u'spentInfo', u'validated']
 
 # update the main tx database
 # example call:
@@ -174,9 +173,9 @@ def recursive_get_spent_tx(spent_dict, max_height):
 #            print get_inputs(txid)
             utxo_visited[key]=True
             if bsq_globals.bsqo_dict.has_key(key):
-                bsq_globals.bsqo_dict[key][u'spent_info']=j
+                bsq_globals.bsqo_dict[key][u'spentInfo']=j
             else:
-                bsq_globals.bsqo_dict[key]={u'spent_info':j, u'txid':txid, u'index':index, u'validated':False}
+                bsq_globals.bsqo_dict[key]={u'spentInfo':j, u'txid':txid, u'index':index, u'validated':False}
             if j!=None:
                 spent_txid=j[u'txid']
                 spent_height=j[u'height']
@@ -219,10 +218,10 @@ def update_outputs_for_tx(txid, genesis=False):
         else:
             if tx_json.has_key('block'):
                 bsqutxo_item[u'height']=tx_json['block']
-        bsqutxo_item[u'tx_time']=str(tx_json['blocktime'])+'000'
+        bsqutxo_item[u'time']=str(tx_json['blocktime'])+'000'
         bsqutxo_item[u'coinBase']=False # Zero chance for a SQU in a block generation tx
 
-        bsqutxo_item[u'output_index']=index
+        bsqutxo_item[u'outputIndex']=index
         bsqutxo_item[u'status']="done"
         bsqutxo_item[u'invalid']=False
 
@@ -231,24 +230,24 @@ def update_outputs_for_tx(txid, genesis=False):
             bsqutxo_item[u'isIssuanceTx']=True # SQU directly from a genesis address
 
             # get amount of SQU
-            bsqutxo_item[u'bsq_amount']=o[u'valueSat']
+            bsqutxo_item[u'bsqAmount']=o[u'valueSat']
 
             # add spent info
-            bsqutxo_item[u'spent_info']=get_spent_json(txid,index)
+            bsqutxo_item[u'spentInfo']=get_spent_json(txid,index)
 
             # icon
             bsqutxo_item[u'icon']="exodus"
-            bsqutxo_item[u'icon_text']="Genesis"
+            bsqutxo_item[u'iconText']="Genesis"
             bsqutxo_item[u'color']="bgc-new"
-            bsqutxo_item[u'tx_type_str']="Genesis transaction"
+            bsqutxo_item[u'txTypeStr']="Genesis transaction"
         else:
             # icon
             bsqutxo_item[u'icon']="simplesend"
-            bsqutxo_item[u'icon_text']="Value transfer"
+            bsqutxo_item[u'iconText']="Value transfer"
             bsqutxo_item[u'color']="bgc-new"
-            bsqutxo_item[u'tx_type_str']="Token send"
+            bsqutxo_item[u'txTypeStr']="Token send"
 
-        bsqutxo_item[u'transaction_version']='0001'
+        bsqutxo_item[u'transactionVersion']='0001'
 
         # add the item to a dict with key txid:index
         key=unicode(txid+':'+str(index))
