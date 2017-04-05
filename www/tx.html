@@ -111,15 +111,15 @@
                                         </tr>
                                         <tr>
                                             <td>BSQ amount Inputs</td>
-                                            <td>{{transactionInformation.squ_received}}
+                                            <td>{{transactionInformation.bsq_received}}
                                         </tr>
                                         <tr>
                                             <td>BSQ amount Outputs</td>
-                                            <td>{{transactionInformation.squ_sent}}
+                                            <td>{{transactionInformation.bsq_sent}}
                                         </tr>
                                         <tr>
                                             <td>BSQ amount Burnt</td>
-                                            <td>{{transactionInformation.squ_burnt}}
+                                            <td>{{transactionInformation.bsq_burnt}}
                                         </tr>
 
                                     </tbody>
@@ -209,7 +209,7 @@
                                                 <span ng-switch-default>{{txo.txid | characters:10}}:{{txo.index}}
                                                 </span>
                                             </td>
-                                            <td>{{txo.squ_amount}}</td>
+                                            <td>{{txo.bsq_amount}}</td>
                                             <td><a ng-href="Address.html?addr={{txo.scriptPubKey.addresses[0]}}">{{txo.scriptPubKey.addresses[0]}}</a></td>
                                             <td>{{txo.tx_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
@@ -251,7 +251,7 @@
                                                 <span ng-switch-default>{{txo.txid | characters:10}}:{{txo.index}}
                                                 </span>
                                             </td>
-                                            <td>{{txo.squ_amount}}</td>
+                                            <td>{{txo.bsq_amount}}</td>
                                             <td><a ng-href="Address.html?addr={{txo.scriptPubKey.addresses[0]}}">{{txo.scriptPubKey.addresses[0]}}</a></td>
                                             <td>{{txo.tx_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
