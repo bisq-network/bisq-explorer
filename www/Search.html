@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <noscript>
+    Java Script has been disabled!
+    <meta http-equiv="refresh" content="0;url=javascript_required.html">
+    </noscript>
+      <link href="css/bootstrap.css" rel="stylesheet">
+      <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script src="btcutils.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="modal fade" id="errorAddressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Error in Address Search</h4>
+      </div>
+      <div class="modal-body">
+        <p>The information regarding this address is not available, as it doesn't
+contain BSQ yet.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="window.history.back()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="errorTransactionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Error in Transaction Search</h4>
+      </div>
+      <div class="modal-body">
+        <p>The information regarding this transaction is not available.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="window.history.back()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+    <script src="redirect.js"></script>
+</body>
+</html>

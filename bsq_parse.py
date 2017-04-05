@@ -255,7 +255,7 @@ for k in bsq_globals.bsqo_dict.keys():
             else:
                 bsq_globals.addr_dict[a][u'stxo']={k:bsq_globals.bsqo_dict[k]}
 
-    atomic_json_dump(bsq_globals.bsqo_dict[k],'txo/'+k+'.json')
+    atomic_json_dump(bsq_globals.bsqo_dict[k],'www/txo/'+k+'.json')
 
 for k in bsq_globals.tx_dict.keys():
      print "################"
@@ -312,8 +312,8 @@ for k in bsq_globals.tx_dict.keys():
      bsq_globals.tx_dict[k][u'bsq_sent']=bsq_sent
      bsq_globals.tx_dict[k][u'bsq_burnt']=bsq_burnt
 
-     atomic_json_dump([vin_list,vout_list],"txtxos/txtxos-"+k+'.json', add_brackets=False)
-     atomic_json_dump(bsq_globals.tx_dict[k],'tx/'+k+'.json')
+     atomic_json_dump([vin_list,vout_list],"www/txtxos/txtxos-"+k+'.json', add_brackets=False)
+     atomic_json_dump(bsq_globals.tx_dict[k],'www/tx/'+k+'.json')
 
 
 
@@ -330,7 +330,7 @@ for t in sorted_tx_list:
 
 for i in range(int(len(summary_list)/10)+1):
     strnum=str(i+1).zfill(4)
-    atomic_json_dump(summary_list[i*10:i*10+9],'general/BSQ_'+strnum+'.json', add_brackets=False)
+    atomic_json_dump(summary_list[i*10:i*10+9],'www/general/BSQ_'+strnum+'.json', add_brackets=False)
 
 # generate addresses json
 for a in bsq_globals.addr_dict.keys():
@@ -394,7 +394,7 @@ for a in bsq_globals.addr_dict.keys():
     addr_json.update({u'spent_outputs_num':spent_num})
     addr_json.update({u'burnt_num':burnt_num})
  
-    atomic_json_dump(addr_json,'addr/'+a+'.json', add_brackets=False)
+    atomic_json_dump(addr_json,'www/addr/'+a+'.json', add_brackets=False)
 
 
 for tx in bsq_globals.tx_dict.keys():
@@ -423,7 +423,7 @@ stats_json=[]
 for k in ["Existing amount", "Minted amount", "Burnt amount", "Addresses", "Unspent TXOs", "Spent TXOs", "Price", "Marketcap"]:
     stats_json.append({"name":k, "value":stats_dict[k]})
 
-atomic_json_dump(stats_json,'general/stats.json', add_brackets=False)
+atomic_json_dump(stats_json,'www/general/stats.json', add_brackets=False)
 
 #for k in bsq_globals.bsqutxo_dict.keys():
 #    if bsq_globals.bsqutxo_dict[k][u'spent_info']==None:
