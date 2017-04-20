@@ -101,13 +101,13 @@
                                             <td>TXID</td>
                                             <td><a ng-href="https://explorer.bisq.io:8443/insight/tx/{{transactionInformation.id}}" target="_blank">{{transactionInformation.id}}</a></td>
                                         </tr>
-                                        <tr ng-repeat="sender in transactionInformation.sendersList">
+                                        <tr ng-repeat="txo in transactionInformation.bsqInputsList">
                                             <td>Sender</td>
-                                            <td><a ng-href="Address.html?addr={{sender}}">{{sender}}</a></td>
+                                            <td><a ng-href="Address.html?addr={{txo.address}}">{{txo.address}}</a></td>
                                         </tr>
-                                        <tr ng-repeat="receiver in transactionInformation.receiversList">
+                                        <tr ng-repeat="txo in transactionInformation.bsqOutputsList">
                                             <td>Receiver</td>
-                                            <td><a ng-href="Address.html?addr={{receiver}}">{{receiver}}</a></td>
+                                            <td><a ng-href="Address.html?addr={{txo.address}}">{{txo.address}}</a></td>
                                         </tr>
                                         <tr>
                                             <td>BSQ amount Inputs</td>
@@ -152,18 +152,6 @@
                                             <td>Block time</td>
                                             <td>{{transactionInformation.outputs[0].time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
-                                        <tr>
-                                       <td>Valid</td>
-                                       <td ng-switch on="transactionInformation.invalid|truefalsesearch" class="{{transactionInformation.invalid|truefalsesearch}}ValidStateDiv">
-                                       <div ng-switch-when="true" id="validPopup"
-                                          data-content="{{reason}}" rel="popover"
-                                          data-placement="bottom" data-original-title="Invalid"
-                                          ng-init="makePopup()">
-                                          Invalid
-                                       </div>
-                                       <div ng-switch-when="false">
-                                          Valid
-                                       </div>
                                        </td>
                                        </tr>
                                     </tbody>
@@ -182,7 +170,7 @@
                                         </tr>
                                    </thead>
                                     <tbody>
-                                        <tr ng-repeat="txo in transactionInformation.inputs">
+                                        <tr ng-repeat="txo in transactionInformation.bsqInputsList">
                                             <td>
                                             <a ng-href='txo.html?txo={{txo.spendingTxId}}:{{txo.spendingTxOutputIndex}}'>{{txo.spendingTxId | characters:10}}:{{txo.spendingTxOutputIndex}}
                                             </a>
@@ -206,7 +194,7 @@
                                         </tr>
                                    </thead>
                                     <tbody>
-                                        <tr ng-repeat="txo in transactionInformation.outputs">
+                                        <tr ng-repeat="txo in transactionInformation.bsqOutputsList">
                                             <td>
                                             <a ng-href='txo.html?txo={{txo.txId}}:{{txo.outputIndex}}'>{{txo.txId | characters:10}}:{{txo.outputIndex}}
                                             </a>

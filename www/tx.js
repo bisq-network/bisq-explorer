@@ -61,24 +61,24 @@ function TransactionController($scope, $http) {
     }
 
     $scope.updateSendersList = function () {
-        $scope.transactionInformation.sendersList = [];
+        $scope.transactionInformation.bsqInputsList = [];
         var length = $scope.transactionInformation.inputs.length;
         var j = 0;
         for (var i = 0; i < length; i++) {
             if ($scope.transactionInformation.inputs[i].isVerified == true) {
-                $scope.transactionInformation.sendersList[j] = $scope.transactionInformation.inputs[i].spendingTxId;
+                $scope.transactionInformation.bsqInputsList[j] = $scope.transactionInformation.inputs[i];
                 j+=1;
             }
         }
     }
 
     $scope.updateReceiversList = function () {
-        $scope.transactionInformation.receiversList = [];
+        $scope.transactionInformation.bsqOutputsList = [];
         var length = $scope.transactionInformation.outputs.length;
         var j = 0;
         for (var i = 0; i < length; i++) {
             if ($scope.transactionInformation.outputs[i].isVerified == true) {
-                $scope.transactionInformation.receiversList[j] = $scope.transactionInformation.outputs[i].address;
+                $scope.transactionInformation.bsqOutputsList[j] = $scope.transactionInformation.outputs[i];
                 j+=1;
             }
         }
