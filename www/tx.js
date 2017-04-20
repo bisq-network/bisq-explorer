@@ -4,7 +4,6 @@
 */
 function TransactionController($scope, $http) {
     $scope.transactionInformation;
-    $scope.txos;
     $scope.footer = "FOOTER";
     $scope.title = "TITLE";
     $scope.reason = "unknown";
@@ -28,28 +27,85 @@ function TransactionController($scope, $http) {
         var file = 'tx/' + myURLParams['tx'] + '.json';
         // Make the http request and process the result
         $http.get(file, {}).success(function (data, status, headers, config) {
-            $scope.transactionInformation = data[0];
+            $scope.transactionInformation = data;
+            $scope.setDefaults();
+            $scope.setSums();
+            $scope.updateSendersList();
+            $scope.updateReceiversList();
             $scope.updateReason();
         });
-
-        var txosURL = "txtxos/txtxos-";
-        txosURL += myURLParams['tx'];
-        txosURL += ".json";
-
-          $.get(txosURL, {}).success(function (data) {
-              //data = $.parseJSON(data);
-              $scope.txos = data;
-              $scope.$apply();
-          });
-      
     }
 
-    $scope.AcceptClick = function () {
-        var myURLParams = BTCUtils.getQueryStringArgs();
-        var url = "acceptform.html?tx=";
-        url += myURLParams['tx'];
-        window.location = url;
+    $scope.setSums = function () {
+        $scope.transactionInformation.bsqReceived = $scope.inputsBsqAmountSum();
+        $scope.transactionInformation.bsqSent = $scope.outputsBsqAmountSum();
+        $scope.transactionInformation.bsqBurnt = $scope.transactionInformation.bsqReceived - $scope.transactionInformation.bsqSent;
     }
+
+    $scope.inputsBsqAmountSum = function () {
+        var length = $scope.transactionInformation.inputs.length;
+        var sum = 0;
+        for (var i = 0; i < length; i++) {
+            sum += parseFloat($scope.transactionInformation.inputs[i].bsqAmount);
+        }
+        return sum;
+    }
+
+    $scope.outputsBsqAmountSum = function () {
+        var length = $scope.transactionInformation.outputs.length;
+        var sum = 0;
+        for (var i = 0; i < length; i++) {
+            sum += parseFloat($scope.transactionInformation.outputs[i].bsqAmount);
+        }
+        return sum;
+    }
+
+    $scope.updateSendersList = function () {
+        $scope.transactionInformation.sendersList = [];
+        var length = $scope.transactionInformation.inputs.length;
+        var j = 0;
+        for (var i = 0; i < length; i++) {
+            if ($scope.transactionInformation.inputs[i].isVerified == true) {
+                $scope.transactionInformation.sendersList[j] = $scope.transactionInformation.inputs[i].spendingTxId;
+                j+=1;
+            }
+        }
+    }
+
+    $scope.updateReceiversList = function () {
+        $scope.transactionInformation.receiversList = [];
+        var length = $scope.transactionInformation.outputs.length;
+        var j = 0;
+        for (var i = 0; i < length; i++) {
+            if ($scope.transactionInformation.outputs[i].isVerified == true) {
+                $scope.transactionInformation.receiversList[j] = $scope.transactionInformation.outputs[i].address;
+                j+=1;
+            }
+        }
+    }
+
+    $scope.setDefaults = function() {
+        if ($scope.transactionInformation.isVerified == true) {
+                $scope.transactionInformation.invalid = false;
+        } else {
+                $scope.transactionInformation.invalid = true;
+        }
+
+        if ($scope.transactionInformation.txType == "GENESIS") {
+                $scope.transactionInformation.icon = "genesis";
+                $scope.transactionInformation.color = "bgc-new";
+        } else {
+               if ($scope.transactionInformation.txType == "SEND_BSQ") {
+                    $scope.transactionInformation.icon = "simplesend";
+                    $scope.transactionInformation.color = "bgc-new";
+               } else {
+                    $scope.transactionInformation.icon = "simplesend";
+                    $scope.transactionInformation.color = "bgc-default";
+               }
+        }
+    }
+
+
     $scope.updateReason = function () {
         if (!angular.isArray($scope.transactionInformation.invalid)) return;
         if ($scope.transactionInformation.invalid.length < 2) return;

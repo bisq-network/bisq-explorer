@@ -86,12 +86,12 @@
                            <table class="table table-striped table-hover table-condensed">
                               <tr>
                                  <td style="width:108px;"><strong>Tx Output<strong></td>
-                                    <td ng-switch on="transactionInformation.icon">
-                                       <span ng-switch-when="genesis">
+                                    <td ng-switch on="transactionInformation.isBsqCoinBase">
+                                       <span ng-switch-when="true">
                                           <span class="pull-right">{{transactionInformation.txo_url_param}}</span>
                                        </span>
-                                       <span ng-switch-when="simplesend">
-                                           <span class="pull-right">{{transactionInformation.txid}}:{{transactionInformation.outputIndex}}</span></td>
+                                       <span ng-switch-when="false">
+                                           <span class="pull-right">{{transactionInformation.txId}}:{{transactionInformation.outputIndex}}</span></td>
                                        </span>
                                     </td>
                                  </td>
@@ -111,15 +111,11 @@
                                     </tr>
                                     <tr>
                                        <td>Receive Tx</td>
-                                       <td><a ng-href="tx.html?tx={{transactionInformation.txid}}">{{transactionInformation.txid}}</a></td>
+                                       <td><a ng-href="tx.html?tx={{transactionInformation.txId}}">{{transactionInformation.txId}}</a></td>
                                     </tr>
                                     <tr>
                                        <td>Spent Tx</td>
-                                       <td><a ng-href="tx.html?tx={{transactionInformation.spentInfo.txid}}">{{transactionInformation.spentInfo.txid}}</a></td>
-                                    </tr>
-                                    <tr>
-                                       <td>Status</td>
-                                       <td>{{transactionInformation.status}}</td>
+                                       <td><a ng-href="tx.html?tx={{transactionInformation.spentInfo.txId}}">{{transactionInformation.spentInfo.txId}}</a></td>
                                     </tr>
                                     <tr>
                                        <td>To</td>
@@ -142,7 +138,7 @@
                                           <img class="round-corner {{transactionInformation.color}} iconPopupInit"
                                              src="ico/{{transactionInformation.icon}}24t.png"
                                              ng-init="createIconPopup()"
-                                             data-content="{{transactionInformation.iconText}}" rel="popover"
+                                             data-content="{{transactionInformation.txTypeDisplayString}}" rel="popover"
                                              data-placement="bottom"
                                              alt="" />
                                           {{transactionInformation.txTypeStr}}

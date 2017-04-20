@@ -28,7 +28,7 @@ function TransactionController($scope, $http) {
         var file = 'txo/' + myURLParams['txo'] + '.json';
         // Make the http request and process the result
         $http.get(file, {}).success(function (data, status, headers, config) {
-            $scope.transactionInformation = data[0];
+            $scope.transactionInformation = data;
 	    $scope.transactionInformation.txo_url_param = myURLParams['txo'].replace("%3A",":");
             $scope.setDefaults();
             $scope.updateReason();
@@ -36,12 +36,24 @@ function TransactionController($scope, $http) {
     }
     
     $scope.setDefaults = function() {
-    	if (!$scope.transactionInformation.icon) {
-    		$scope.transactionInformation.icon = "simplesend";
-    	}
-    	if (!$scope.transactionInformation.color) {
-	    	$scope.transactionInformation.color = "bgc-default";
-    	}
+        if ($scope.transactionInformation.isVerified == true) {
+                $scope.transactionInformation.invalid = false;
+        } else {
+                $scope.transactionInformation.invalid = true;
+        }
+
+        if ($scope.transactionInformation.txType == "GENESIS") {
+                $scope.transactionInformation.icon = "genesis";
+                $scope.transactionInformation.color = "bgc-new";
+        } else {
+               if ($scope.transactionInformation.txType == "SEND_BSQ") {
+                    $scope.transactionInformation.icon = "simplesend";
+                    $scope.transactionInformation.color = "bgc-new";
+               } else {
+                    $scope.transactionInformation.icon = "simplesend";
+                    $scope.transactionInformation.color = "bgc-default";
+               }
+        }
     }
     
     $scope.updateReason = function () {

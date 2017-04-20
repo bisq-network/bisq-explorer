@@ -86,7 +86,7 @@
                            <table class="table table-striped table-hover table-condensed">
                               <tr>
                                  <td style="width:108px;"><strong>Transaction<strong></td>
-                                 <td><span class="pull-right">{{transactionInformation.txid}}</span></td>
+                                 <td><span class="pull-right">{{transactionInformation.id}}</span></td>
                               </tr>
                            </table>
                         </div>
@@ -99,15 +99,15 @@
                                     <tbody>
                                         <tr>
                                             <td>TXID</td>
-                                            <td><a ng-href="https://explorer.bisq.io:8443/insight/tx/{{transactionInformation.txid}}" target="_blank">{{transactionInformation.txid}}</a></td>
+                                            <td><a ng-href="https://explorer.bisq.io:8443/insight/tx/{{transactionInformation.id}}" target="_blank">{{transactionInformation.id}}</a></td>
                                         </tr>
-                                        <tr ng-repeat="txo in txos[0]">
+                                        <tr ng-repeat="sender in transactionInformation.sendersList">
                                             <td>Sender</td>
-                                            <td><a ng-href="Address.html?addr={{txo.scriptPubKey.addresses[0]}}">{{txo.scriptPubKey.addresses[0]}}</a></td>
+                                            <td><a ng-href="Address.html?addr={{sender}}">{{sender}}</a></td>
                                         </tr>
-                                        <tr ng-repeat="txo in txos[1]">
+                                        <tr ng-repeat="receiver in transactionInformation.receiversList">
                                             <td>Receiver</td>
-                                            <td><a ng-href="Address.html?addr={{txo.scriptPubKey.addresses[0]}}">{{txo.scriptPubKey.addresses[0]}}</a></td>
+                                            <td><a ng-href="Address.html?addr={{receiver}}">{{receiver}}</a></td>
                                         </tr>
                                         <tr>
                                             <td>BSQ amount Inputs</td>
@@ -132,33 +132,29 @@
                                         <tr>
                                             <td>Transaction type</td>
                                             <td>
-                                            <img class="round-corner {{transactionInformation.vout[0].color}} iconPopupInit"
-												src="ico/{{transactionInformation.vout[0].icon}}24t.png"
+                                            <img class="round-corner {{transactionInformation.color}} iconPopupInit"
+												src="ico/{{transactionInformation.txType}}24t.png"
 												ng-init="createIconPopup()"
-												data-content="{{transactionInformation.vout[0].iconText}}" rel="popover"
+												data-content="{{transactionInformation.txTypeDisplayString}}" rel="popover"
 												data-placement="bottom"
 												alt="" />
-                                            {{transactionInformation.vout[0].txTypeStr}}</td>
+                                            {{transactionInformation.txTypeDisplayString}}</td>
                                         </tr>
                                         <tr>
                                             <td>Transaction version</td>
-                                            <td>{{transactionInformation.vout[0].transactionVersion}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Status</td>
-                                            <td>{{transactionInformation.vout[0].status}}</td>
+                                            <td>{{transactionInformation.txVersion}}</td>
                                         </tr>
                                         <tr>
                                             <td>Included in block</td>
-                                            <td>{{transactionInformation.vout[0].height}}</td>
+                                            <td>{{transactionInformation.blockHeight}}</td>
                                         </tr>
                                         <tr>
                                             <td>Block time</td>
-                                            <td>{{transactionInformation.vout[0].time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td>{{transactionInformation.outputs[0].time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
                                         <tr>
                                        <td>Valid</td>
-                                       <td ng-switch on="transactionInformation.vout[0].invalid|truefalsesearch" class="{{transactionInformation.vout[0].invalid|truefalsesearch}}ValidStateDiv">
+                                       <td ng-switch on="transactionInformation.invalid|truefalsesearch" class="{{transactionInformation.invalid|truefalsesearch}}ValidStateDiv">
                                        <div ng-switch-when="true" id="validPopup"
                                           data-content="{{reason}}" rel="popover"
                                           data-placement="bottom" data-original-title="Invalid"
@@ -186,27 +182,13 @@
                                         </tr>
                                    </thead>
                                     <tbody>
-                                        <tr ng-repeat="txo in txos[0]">
-                                            <td ng-switch on="txo.icon">
-                                            	<img class="round-corner {{txo.color}} iconPopupInit"
-													src="ico/{{txo.icon}}24t.png"
-													ng-init="createIconPopup()"
-													data-content="{{txo.iconText}}" rel="popover"
-													data-placement="bottom"
-													alt="" />
-                                                <span ng-switch-when="genesis">
-                                                    <a ng-href='txo.html?txo={{transactionInformation.vin[0].txid}}:{{txo.outputIndex}}'>{{transactionInformation.vin[0].txid | characters:10}}:{{txo.outputIndex}}
-                                                    </a>
-                                                </span>
-                                                <span ng-switch-when="simplesend">
-                                                    <a ng-href='txo.html?txo={{txo.txid}}:{{txo.outputIndex}}'>{{txo.txid | characters:10}}:{{txo.outputIndex}}
-                                                    </a>
-                                                </span>
-                                                <span ng-switch-default>{{txo.txid | characters:10}}:{{txo.index}}
-                                                </span>
+                                        <tr ng-repeat="txo in transactionInformation.inputs">
+                                            <td>
+                                            <a ng-href='txo.html?txo={{txo.spendingTxId}}:{{txo.spendingTxOutputIndex}}'>{{txo.spendingTxId | characters:10}}:{{txo.spendingTxOutputIndex}}
+                                            </a>
                                             </td>
                                             <td>{{txo.bsqAmount}}</td>
-                                            <td><a ng-href="Address.html?addr={{txo.scriptPubKey.addresses[0]}}">{{txo.scriptPubKey.addresses[0]}}</a></td>
+                                            <td><a ng-href="Address.html?addr={{txo.address}}">{{txo.address}}</a></td>
                                             <td>{{txo.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
                                     </tbody>
@@ -224,27 +206,13 @@
                                         </tr>
                                    </thead>
                                     <tbody>
-                                        <tr ng-repeat="txo in txos[1]">
-                                            <td ng-switch on="txo.icon">
-                                            	<img class="round-corner {{txo.color}} iconPopupInit"
-													src="ico/{{txo.icon}}24t.png"
-													ng-init="createIconPopup()"
-													data-content="{{txo.iconText}}" rel="popover"
-													data-placement="bottom"
-													alt="" />
-                                                <span ng-switch-when="simplesend">
-                                                    <a ng-href='txo.html?txo={{txo.txid}}:{{txo.index}}'>{{txo.txid | characters:10}}:{{txo.index}}
-                                                    </a>
-                                                </span>
-                                                <span ng-switch-when="genesis">
-                                                    <a ng-href='txo.html?txo={{transactionInformation.txid}}:{{txo.outputIndex}}'>{{transactionInformation.txid | characters:10}}:{{txo.outputIndex}}
-                                                    </a>
-                                                </span>
-                                                <span ng-switch-default>{{txo.txid | characters:10}}:{{txo.index}}
-                                                </span>
+                                        <tr ng-repeat="txo in transactionInformation.outputs">
+                                            <td>
+                                            <a ng-href='txo.html?txo={{txo.txId}}:{{txo.outputIndex}}'>{{txo.txId | characters:10}}:{{txo.outputIndex}}
+                                            </a>
                                             </td>
                                             <td>{{txo.bsqAmount}}</td>
-                                            <td><a ng-href="Address.html?addr={{txo.scriptPubKey.addresses[0]}}">{{txo.scriptPubKey.addresses[0]}}</a></td>
+                                            <td><a ng-href="Address.html?addr={{txo.address}}">{{txo.address}}</a></td>
                                             <td>{{txo.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
                                     </tbody>
