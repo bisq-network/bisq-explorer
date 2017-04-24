@@ -45,10 +45,17 @@ BTCUtils.getQueryStringArgs = function () {
 }
 
 BTCUtils.isAddress = function(adr) {
-    //var re = /^[13][1-9A-HJ-NP-Za-km-z]{26,33}$/;
     var re = /^[123mn][1-9A-HJ-NP-Za-km-z]{26,35}/;
     return re.test(adr);
 }
+
+BTCUtils.isBAddress = function(adr) {
+    var re = /^[B][1-9A-HJ-NP-Za-km-z]{26,36}/;
+    return re.test(adr);
+}
+
+
+
 
 BTCUtils.isTxId = function(txid) {
     var re = /^[0-9a-fA-F]{64}$/;

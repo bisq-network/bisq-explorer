@@ -211,7 +211,7 @@ $(document).ready(function () {
         //redirect to Search.html?tx=<searched term>
         var searchTerm = $('.combobox-container .select').val();
 	
-	if (!BTCUtils.isAddress(searchTerm) && !BTCUtils.isTxId(searchTerm)) {
+	if (!BTCUtils.isAddress(searchTerm) && !BTCUtils.isTxId(searchTerm) && !BTCUtils.isBAddress(searchTerm)) {
 		alert("invalid address or transaction id");
 		return;
 	}

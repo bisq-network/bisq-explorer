@@ -10,36 +10,29 @@ $(document).ready(function () {
 
 
     var tx = myURLParams['tx'];
-    var currency = myURLParams['currency'];
-    if (!BTCUtils.isCurrencySymbol(currency)) {
-            currencyName = 'Unknown';
-    }
-
     var url = '';
     if (tx.length < 63)
     {
-		var file = 'addr/' + tx + '.json';	
-        if (currency == 'MSC') {
-           currencyNumber = 0;
-        }	
-        if (currency == 'TMSC') {
-           currencyNumber = 1;
-        }	
+        var addr = tx;
+        if (addr[0]=='B') { // drop the B of BSQ
+            addr = tx.substring(1,);
+        }
+	var file = 'addr/' + addr + '.json';
         $.getJSON( file, function( data ) {
         	console.log("ok");
-	    	url = "Address.html?addr=" + tx + "&currency=" + currency;
+		url = "Address.html?addr=" + addr;
 	    	window.location = url;
         }).fail(function() {
-		    console.log( "error" );
-		    $('#errorAddressModal').modal('show');
-		  });        
+		console.log( "error" );
+		$('#errorAddressModal').modal('show');
+	});
     
     	return;
     }
 
 
     //Ajax call so I can see transactionType from JSON
-    url = '/tx/' + tx + '.json';
+    url = 'tx/' + tx + '.json';
     $.ajax({
 	url: url,
 	type: 'get',
@@ -49,22 +42,18 @@ $(document).ready(function () {
 	    var url = "";
 
 	    var response = data;
+            console.log('DEBUG-DEBUG-DEBUG start a');
 	    console.log(response);
-	    console.log(response[0].transactionType);
-	    var transactionType = response[0].transactionType;
-	    var method = response[0].method;
-	    var invalid = response[0].invalid;
-	    var invalid_str = invalid.toString();
-	    if (invalid_str == 'true,bitcoin payment') {
-                //if is bitcoin payment
-		url += "btcpayment.html?tx=";
-            }
-	    else if ((method == 'basic') || (transactionType == '0000') || ! transactionType) {
+            console.log('DEBUG-DEBUG-DEBUG start b');
+	    console.log(response.txVersion);
+            console.log('DEBUG-DEBUG-DEBUG start c');
+	    if (response.txVersion == "1") {
 		//it is tx
 		url += "tx.html?tx=";
 	    }
             url += tx;
 	    console.log(url);
+            console.log('DEBUG-DEBUG-DEBUG end');
 	    window.location = url;
 	},
 	error: function () {
