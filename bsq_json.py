@@ -21,7 +21,9 @@ bsq_globals.chainstate_dict=load_json_file('www/all/bsqChainState.json')
 lines_per_page=10
 
 lines=[]
+last_block=0
 for block in bsq_globals.chainstate_dict[u'blocks']:
+    last_block=block[u'bsqBlockVo'][u'height']
     for tx in block[u'txs']:
         txid=tx[u'txVo'][u'id']
         time=tx[u'txVo'][u'time']
@@ -156,3 +158,8 @@ for addr in bsq_globals.addr_dict.keys():
 for addr in bsq_globals.addr_dict.keys():
     atomic_json_dump(bsq_globals.addr_dict[addr],'www/addr/'+addr+'.json', add_brackets=False)
 
+(commit_hexsha,commit_time)=get_git_details()
+now=get_now()
+revision_dict={"commit_hexsha":commit_hexsha, "commit_time":commit_time, "last_block":last_block, "last_parsed":now, "url":"https://github.com/grazcoin/bisq-tools"}
+
+atomic_json_dump(revision_dict,'www/revision.json', add_brackets=False)

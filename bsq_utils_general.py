@@ -152,3 +152,10 @@ def load_json_file(filename):
     f.close()
     data=simplejson.loads(unicode(json_data))
     return data
+
+def get_git_details(directory="~/github/bisq-tools"):
+    repo = git.Repo(directory)
+    assert repo.bare == False
+    head_commit=repo.head.commit
+    timestamp=format_time_from_epoch(int(head_commit.authored_date), True)
+    return(head_commit.hexsha,timestamp)
