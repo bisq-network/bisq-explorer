@@ -95,7 +95,7 @@ function TransactionController($scope, $http) {
                 $scope.transactionInformation.icon = "genesis";
                 $scope.transactionInformation.color = "bgc-new";
         } else {
-               if ($scope.transactionInformation.txType == "SEND_BSQ") {
+               if ($scope.transactionInformation.txType == "TRANSFER_BSQ") {
                     $scope.transactionInformation.icon = "simplesend";
                     $scope.transactionInformation.color = "bgc-new";
                } else {
