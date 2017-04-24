@@ -15,7 +15,7 @@ $(document).ready(function () {
     {
         var addr = tx;
         if (addr[0]=='B') { // drop the B of BSQ
-            addr = tx.substring(1,);
+            addr = tx.substring(1,tx.length);
         }
 	var file = 'addr/' + addr + '.json';
         $.getJSON( file, function( data ) {
