@@ -9,7 +9,6 @@
 
 import logging
 from bsq_utils_general import *
-from bsq_utils_parse import *
 import sys
 from pprint import pprint
 
