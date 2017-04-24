@@ -95,32 +95,32 @@
                               </thead>
                               <tbody>
                                  <tr ng-repeat="trans in transactions">
-                                    <td ng-switch on="trans.icon">
-                                       <img class="icon24 round-corner {{trans.color}} iconPopupInit"
-                                          src="ico/{{trans.icon}}24t.png"
+                                    <td ng-switch on="trans.txType">
+                                       <img class="icon24 round-corner {{trans.txType}} iconPopupInit"
+                                          src="ico/{{trans.txType}}24t.png"
                                           ng-init="createIconPopup()"
-                                          data-content="{{trans.iconText}}" rel="popover"
+                                          data-content="{{trans.txTypeDisplayString}}" rel="popover"
                                           data-placement="bottom"
                                           alt=""
                                           />
-                                       <span ng-switch-when="genesis">
-                                       <a ng-href='tx.html?tx={{trans.txid}}'>{{trans.txid | characters:10}}
+                                       <span ng-switch-when="GENESIS">
+                                       <a ng-href='tx.html?tx={{trans.txId}}'>{{trans.txId | characters:10}}
                                        </a>
                                        </span>
-                                       <span ng-switch-when="simplesend">
-                                       <a ng-href='tx.html?tx={{trans.txid}}'>{{trans.txid | characters:10}}
+                                       <span ng-switch-when="TRANSFER_BSQ">
+                                       <a ng-href='tx.html?tx={{trans.txId}}'>{{trans.txId | characters:10}}
                                        </a>
                                        </span>
                                        <span ng-switch-default>
-                                       <a ng-href='tx.html?tx={{trans.txid}}'>{{trans.txid | characters:10}}
+                                       <a ng-href='tx.html?tx={{trans.txId}}'>{{trans.txId | characters:10}}
                                        </a>
                                        </span>
                                     </td>
-                                    <td ng-switch on="trans.icon">
-                                       <span ng-switch-when="simplesend">
+                                    <td ng-switch on="trans.txType">
+                                       <span ng-switch-when="TRANSFER_BSQ">
                                        <a href='Address.html?addr={{trans.toAddress}}'>{{trans.toAddress}}</a>
                                        </span>
-                                       <span ng-switch-when="genesis">
+                                       <span ng-switch-when="GENESIS">
                                        <a href='Address.html?addr={{trans.toAddress}}'>{{trans.toAddress}}</a>
                                        </span>
                                        <span ng-switch-default>

@@ -176,7 +176,7 @@
                                              data-content="{{utxo.iconText}}" rel="popover"
                                              data-placement="bottom"
                                              alt="" />
-                                          <a ng-href="txo.html?txo={{utxo.txid}}:{{utxo.outputIndex}}">{{utxo.txid | characters:10}}:{{utxo.outputIndex}}</a>
+                                          <a ng-href="txo.html?txo={{utxo.txId}}:{{utxo.index}}">{{utxo.txId | characters:10}}:{{utxo.index}}</a>
 
                                        </td>
                                        <td>{{utxo.bsqAmount}}</td>
@@ -207,7 +207,7 @@
                                              data-content="{{stxo.iconText}}" rel="popover"
                                              data-placement="bottom"
                                              alt="" />
-                                          <a ng-href="txo.html?txo={{stxo.txid}}:{{stxo.outputIndex}}">{{stxo.txid | characters:10}}:{{stxo.outputIndex}}</a>
+                                          <a ng-href="txo.html?txo={{stxo.txId}}:{{stxo.index}}">{{stxo.txId | characters:10}}:{{stxo.index}}</a>
                                        </td>
                                        <td>{{stxo.bsqAmount}}</td>
                                        <td>{{stxo.time | date:'dd MMM HH:mm'}}</td>

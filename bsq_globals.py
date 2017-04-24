@@ -21,6 +21,7 @@ def init():
     global tx_dict
     global addr_dict
     global stats_dict
+    global chainstate_dict
     last_block=0
     rpc_connection=AuthServiceProxy("http://%s:%s@127.0.0.1:8332"%(rpc_user, rpc_password))
     bsqutxo_dict={}
@@ -35,5 +36,6 @@ def init():
             "Spent TXOs":0,
             "Price":0,
             "Marketcap":0}
+    chaintate_dict={}
     d=False
 
