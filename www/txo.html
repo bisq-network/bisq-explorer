@@ -86,11 +86,11 @@
                            <table class="table table-striped table-hover table-condensed">
                               <tr>
                                  <td style="width:108px;"><strong>Tx Output<strong></td>
-                                    <td ng-switch on="transactionInformation.isBsqCoinBase">
-                                       <span ng-switch-when="true">
+                                    <td ng-switch on="transactionInformation.txType">
+                                       <span ng-switch-when="GENESIS">
                                           <span class="pull-right">{{transactionInformation.txo_url_param}}</span>
                                        </span>
-                                       <span ng-switch-when="false">
+                                       <span ng-switch-when="TRANSFER_BSQ">
                                            <span class="pull-right">{{transactionInformation.txId}}:{{transactionInformation.outputIndex}}</span></td>
                                        </span>
                                     </td>
