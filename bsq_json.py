@@ -99,7 +99,7 @@ atomic_json_dump(stats_json,'www/general/stats.json', add_brackets=False)
 
 # split recent tx to pages
 lines.reverse()
-pages=int(len(lines)/lines_per_page)+1
+pages=int((len(lines)-1)/lines_per_page)+1
 for i in range(pages):
     strnum=str(i+1).zfill(4)
     atomic_json_dump(lines[i*lines_per_page:(i+1)*lines_per_page],'www/general/BSQ_'+strnum+'.json', add_brackets=False)
