@@ -153,7 +153,7 @@ def load_json_file(filename):
     data=simplejson.loads(unicode(json_data))
     return data
 
-def get_git_details(directory="~/github/bisq-tools"):
+def get_git_details(directory="~/github/bitsquare"):
     repo = git.Repo(directory)
     assert repo.bare == False
     head_commit=repo.head.commit
