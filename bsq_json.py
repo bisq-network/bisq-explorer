@@ -28,6 +28,7 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
         txid=tx[u'txVo'][u'id']
         time=tx[u'txVo'][u'time']
         txType=tx[u'txType']
+        burntFee=tx[u'burntFee']
 
         txBsqAmount=0
         # take address from first output as tx details
@@ -39,7 +40,10 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
             if txType == 'TRANSFER_BSQ':
                 txTypeDisplayString='Transfer BSQ'
             else:
-                txTypeDisplayString='Unknown'
+                if txType == 'PAY_TRADE_FEE':
+                    txTypeDisplayString='Pay trade fee'
+                else:
+                    txTypeDisplayString='Unknown'
 
         for o in tx[u'outputs']:
             index=o[u'txOutputVo'][u'index']
@@ -80,7 +84,7 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
         # collect the fee for stats
         bsq_globals.stats_dict['Burnt amount']+=tx[u'burntFee']
 
-        line_dict={u'bsqAmount':txBsqAmount, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'time':time, u'toAddress':address}
+        line_dict={u'bsqAmount':txBsqAmount, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'time':time, u'toAddress':address, u'burntFee':burntFee}
         lines.append(line_dict)
 
 # calculate more stats
