@@ -312,6 +312,18 @@ ul.pagination li a{
     background: #32cd32;
 }
 
+.COMPENSATION_REQUEST {
+    background: #32cd32;
+}
+
+.VOTE {
+    background: #32cd32;
+}
+
+.ISSUANCE {
+    background: #32cd32;
+}
+
 .bgc01 {
     background: #0000DD;
 }
