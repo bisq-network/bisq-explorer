@@ -43,7 +43,16 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
                 if txType == 'PAY_TRADE_FEE':
                     txTypeDisplayString='Pay trade fee'
                 else:
-                    txTypeDisplayString='Unknown'
+                    if txType == 'COMPENSATION_REQUEST':
+                        txTypeDisplayString='Compensation request'
+                    else:
+                        if txType == 'VOTE':
+                            txTypeDisplayString='Vote'
+                        else:
+                            if txType == 'ISSUANCE':
+                                txTypeDisplayString='Issuance'
+                            else:
+                                txTypeDisplayString='Unknown'
 
         for o in tx[u'outputs']:
             index=o[u'txOutputVo'][u'index']

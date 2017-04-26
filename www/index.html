@@ -115,6 +115,10 @@
                                        <a ng-href='tx.html?tx={{trans.txId}}'>{{trans.txId | characters:10}}
                                        </a>
                                        </span>
+                                       <span ng-switch-when="COMPENSATION_REQUEST">
+                                       <a ng-href='tx.html?tx={{trans.txId}}'>{{trans.txId | characters:10}}
+                                       </a>
+                                       </span>
                                        <span ng-switch-default>
                                        <a ng-href='tx.html?tx={{trans.txId}}'>{{trans.txId | characters:10}}
                                        </a>
@@ -130,6 +134,9 @@
                                        <span ng-switch-when="GENESIS">
                                        <a href='Address.html?addr={{trans.toAddress}}'>B{{trans.toAddress}}</a>
                                        </span>
+                                       <span ng-switch-when="COMPENSATION_REQUEST">
+                                       Compensation request
+                                       </span>
                                        <span ng-switch-default>
                                        </span>
                                     </td>
@@ -141,6 +148,9 @@
                                     {{trans.burntFee}}
                                     </span>
                                     <span ng-switch-when="GENESIS">
+                                    {{trans.bsqAmount}}
+                                    </span>
+                                    <span ng-switch-when="COMPENSATION_REQUEST">
                                     {{trans.bsqAmount}}
                                     </span>
                                     <span ng-switch-default>
