@@ -29,7 +29,7 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
         time=tx[u'txVo'][u'time']
         txType=tx[u'txType']
         burntFee=tx[u'burntFee']
-
+        outputsNum=0
         txBsqAmount=0
         # take address from first output as tx details
         address=tx[u'outputs'][0][u'txOutputVo'][u'address']
@@ -63,6 +63,7 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
                     txBsqAmount += bsqAmount
                     addr=o[u'txOutputVo'][u'address']
                     unspent=o[u'isUnspent']
+                    outputsNum+=1
                     txo_entry={u'bsqAmount':bsqAmount, u'time':time, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'index':str(index)}
                     if bsq_globals.addr_dict.has_key(addr):
                         if unspent==True:
@@ -93,7 +94,7 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
         # collect the fee for stats
         bsq_globals.stats_dict['Burnt amount']+=tx[u'burntFee']
 
-        line_dict={u'bsqAmount':txBsqAmount, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'time':time, u'toAddress':address, u'burntFee':burntFee}
+        line_dict={u'bsqAmount':txBsqAmount, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'time':time, u'burntFee':burntFee, u'outputsNum':outputsNum, u'height':last_block}
         lines.append(line_dict)
 
 # divide by 100000 Satoshi/BSQ

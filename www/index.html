@@ -88,8 +88,9 @@
                               <thead>
                                  <tr>
                                     <th>Transaction</th>
-                                    <th>Details</th>
-                                    <th>Amount</th>
+                                    <th>Total sent</th>
+                                    <th>Outputs</th>
+                                    <th>Block height</th>
                                     <th>Block time</th>
                                  </tr>
                               </thead>
@@ -125,38 +126,24 @@
                                        </span>
                                     </td>
                                     <td ng-switch on="trans.txType">
-                                       <span ng-switch-when="TRANSFER_BSQ">
-                                       <a href='Address.html?addr={{trans.toAddress}}'>B{{trans.toAddress}}</a>
-                                       </span>
-                                       <span ng-switch-when="PAY_TRADE_FEE">
-                                       Fee
-                                       </span>
-                                       <span ng-switch-when="GENESIS">
-                                       <a href='Address.html?addr={{trans.toAddress}}'>B{{trans.toAddress}}</a>
-                                       </span>
-                                       <span ng-switch-when="COMPENSATION_REQUEST">
-                                       Compensation request
-                                       </span>
-                                       <span ng-switch-default>
-                                       </span>
-                                    </td>
-                                    <td ng-switch on="trans.txType">
                                     <span ng-switch-when="TRANSFER_BSQ">
-                                    {{trans.bsqAmount/100000}}
+                                    {{(trans.bsqAmount/100000).toFixed(6)}}
                                     </span>
                                     <span ng-switch-when="PAY_TRADE_FEE">
-                                    {{trans.burntFee/100000}}
+                                    {{(trans.burntFee/100000).toFixed(6)}}
                                     </span>
                                     <span ng-switch-when="GENESIS">
-                                    {{trans.bsqAmount/100000}}
+                                    {{(trans.bsqAmount/100000).toFixed(6)}}
                                     </span>
                                     <span ng-switch-when="COMPENSATION_REQUEST">
-                                    {{trans.bsqAmount/100000}}
+                                    {{(trans.bsqAmount/100000).toFixed(6)}}
                                     </span>
                                     <span ng-switch-default>
-                                    {{trans.bsqAmount/100000}}
+                                    {{(trans.bsqAmount/100000).toFixed(6)}}
                                     </span>
                                     </td>
+                                    <td>{{trans.outputsNum}}</td>
+                                    <td>{{trans.height}}</td>
                                     <td>{{trans.time | date:'dd MMM HH:mm'}}</td>
                                  </tr>
                               </tbody>
