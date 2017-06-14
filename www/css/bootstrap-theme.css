@@ -1,10 +1,10 @@
 
 .navbar .navbar-brand{
-  padding:10px 15px;
+  padding:0px 15px;
 }
 
 a.navbar-brand img:first-of-type {
-   height: 32px;
+   height: 60px;
 }
 
 .navbar a.navbar-title{

@@ -45,7 +45,7 @@ BTCUtils.getQueryStringArgs = function () {
 }
 
 BTCUtils.isAddress = function(adr) {
-    var re = /^[123mn][1-9A-HJ-NP-Za-km-z]{26,35}/;
+    var re = /^[123mnLM][1-9A-HJ-NP-Za-km-z]{26,35}/;
     return re.test(adr);
 }
 
