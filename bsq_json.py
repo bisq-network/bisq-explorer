@@ -92,7 +92,7 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
             bsq_globals.stats_dict['Minted amount']+=txBsqAmount
 
         # collect the fee for stats
-        bsq_globals.stats_dict['Burnt amount']+=tx[u'burntFee']
+        bsq_globals.stats_dict['Burnt amount']+=float(tx[u'burntFee'])
 
         line_dict={u'bsqAmount':txBsqAmount, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'time':time, u'burntFee':burntFee, u'outputsNum':outputsNum, u'height':last_block}
         lines.append(line_dict)
