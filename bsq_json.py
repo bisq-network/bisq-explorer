@@ -22,7 +22,7 @@ lines_per_page=10
 
 lines=[]
 last_block=0
-for block in bsq_globals.chainstate_dict[u'blocks']:
+for block in bsq_globals.chainstate_dict[u'bsqBlocks']:
     last_block=block[u'bsqBlockVo'][u'height']
     for tx in block[u'txs']:
         txid=tx[u'txVo'][u'id']
