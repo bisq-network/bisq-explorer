@@ -97,15 +97,15 @@ for block in bsq_globals.chainstate_dict[u'bsqBlocks']:
         line_dict={u'bsqAmount':txBsqAmount, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'time':time, u'burntFee':burntFee, u'outputsNum':outputsNum, u'height':last_block}
         lines.append(line_dict)
 
-# divide by 100000 Satoshi/BSQ
-bsq_globals.stats_dict['Minted amount']/=100000
-bsq_globals.stats_dict['Burnt amount']/=100000
-bsq_globals.stats_dict['Existing amount']/=100000
+# divide by 1000 Satoshi/BSQ
+bsq_globals.stats_dict['Minted amount']/=1000
+bsq_globals.stats_dict['Burnt amount']/=1000
+bsq_globals.stats_dict['Existing amount']/=1000
 
 # calculate more stats
 bsq_globals.stats_dict['Existing amount']=bsq_globals.stats_dict['Minted amount']-bsq_globals.stats_dict['Burnt amount']
 bsq_globals.stats_dict['Addresses']=len(bsq_globals.addr_dict.keys())
-bsq_globals.stats_dict['Price']=0.1234
+bsq_globals.stats_dict['Price']=0.001234
 bsq_globals.stats_dict['Marketcap']=bsq_globals.stats_dict['Price']*bsq_globals.stats_dict['Existing amount']
 
 
