@@ -104,24 +104,24 @@
                                  <tbody>
                                     <tr>
                                        <td>Final balance</td>
-                                       <td><strong>{{(addressInformation.balance/1000).toFixed(6)}}</strong>
+                                       <td><strong>{{(addressInformation.balance/1000).toFixed(4)}}</strong>
                                        </td>
                                     </tr>
                                     <tr>
                                        <td>Compensation Request</td>
-                                       <td>{{(addressInformation.totalGenesis/1000).toFixed(6)}}</td>
+                                       <td>{{(addressInformation.totalGenesis/1000).toFixed(4)}}</td>
                                     </tr>
                                     <tr>
                                        <td>BSQ received</td>
-                                       <td>{{(addressInformation.totalReceived/1000).toFixed(6)}}</td>
+                                       <td>{{(addressInformation.totalReceived/1000).toFixed(4)}}</td>
                                     </tr>
                                     <tr>
                                        <td>BSQ spent</td>
-                                       <td>{{(addressInformation.totalSpent/1000).toFixed(6)}}</td>
+                                       <td>{{(addressInformation.totalSpent/1000).toFixed(4)}}</td>
                                     </tr>
                                     <tr>
                                        <td>BSQ burnt</td>
-                                       <td>{{(addressInformation.totalBurnt/1000).toFixed(6)}}</td>
+                                       <td>{{(addressInformation.totalBurnt/1000).toFixed(4)}}</td>
                                     </tr>
                                  </tbody>
                               </table>
@@ -132,7 +132,7 @@
                                  <tbody>
                                     <tr>
                                        <td>Reserved</td>
-                                       <td>{{(addressInformation.totalReserved/1000).toFixed(6)}}
+                                       <td>{{(addressInformation.totalReserved/1000).toFixed(4)}}
                                        </td>
                                     </tr>
                                     <tr>
@@ -179,7 +179,7 @@
                                           <a ng-href="txo.html?txo={{utxo.txId}}:{{utxo.index}}">{{utxo.txId | characters:10}}:{{utxo.index}}</a>
 
                                        </td>
-                                       <td>{{(utxo.bsqAmount/1000).toFixed(6)}}</td>
+                                       <td>{{(utxo.bsqAmount/1000).toFixed(4)}}</td>
                                        <td>{{utxo.time | date:'dd MMM HH:mm'}}</td>
                                     </tr>
                                  </tbody>
@@ -209,7 +209,7 @@
                                              alt="" />
                                           <a ng-href="txo.html?txo={{stxo.txId}}:{{stxo.index}}">{{stxo.txId | characters:10}}:{{stxo.index}}</a>
                                        </td>
-                                       <td>{{(stxo.bsqAmount/1000).toFixed(6)}}</td>
+                                       <td>{{(stxo.bsqAmount/1000).toFixed(4)}}</td>
                                        <td>{{stxo.time | date:'dd MMM HH:mm'}}</td>
                                     </tr>
                                  </tbody>
