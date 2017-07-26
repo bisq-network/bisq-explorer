@@ -179,6 +179,6 @@ for addr in bsq_globals.addr_dict.keys():
 
 (commit_hexsha,commit_time)=get_git_details()
 now=get_now()
-revision_dict={"commit_hexsha":commit_hexsha, "commit_time":commit_time, "last_block":last_block, "last_parsed":now, "url":"https://github.com/bitsquare/bitsquare/tree/DAO"}
+revision_dict={"commit_hexsha":commit_hexsha, "commit_time":commit_time, "last_block":last_block, "last_parsed":now, "url":"https://github.com/bitsquare/bitsquare/tree/DAO_phase1"}
 
 atomic_json_dump(revision_dict,'www/revision.json', add_brackets=False)
