@@ -23,7 +23,7 @@ lines_per_page=10
 lines=[]
 last_block=0
 for block in bsq_globals.chainstate_dict[u'bsqBlocks']:
-    last_block=block[u'bsqBlockVo'][u'height']
+    last_block=block[u'height']
     for tx in block[u'txs']:
         txid=tx[u'txVo'][u'id']
         time=tx[u'txVo'][u'time']
@@ -32,7 +32,7 @@ for block in bsq_globals.chainstate_dict[u'bsqBlocks']:
         outputsNum=0
         txBsqAmount=0
         # take address from first output as tx details
-        address=tx[u'outputs'][0][u'txOutputVo'][u'address']
+        address=tx[u'outputs'][0][u'address']
 
         if txType == 'GENESIS':
             txTypeDisplayString='Genesis'
@@ -55,13 +55,13 @@ for block in bsq_globals.chainstate_dict[u'bsqBlocks']:
                                 txTypeDisplayString='Unknown'
 
         for o in tx[u'outputs']:
-            index=o[u'txOutputVo'][u'index']
+            index=o[u'index']
             if (txType=='GENESIS' or \
                 ((txType == 'TRANSFER_BSQ') and \
                 (o[u'txOutputType']=='BSQ_OUTPUT'))):
-                    bsqAmount = o[u'txOutputVo'][u'value']
+                    bsqAmount = o[u'value']
                     txBsqAmount += bsqAmount
-                    addr=o[u'txOutputVo'][u'address']
+                    addr=o[u'address']
                     unspent=o[u'isUnspent']
                     outputsNum+=1
                     txo_entry={u'bsqAmount':bsqAmount, u'time':time, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'index':str(index)}
