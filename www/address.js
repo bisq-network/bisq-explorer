@@ -76,7 +76,8 @@ function AdressController($scope, $http) {
 
         // parse addr from url parameters
 	var myURLParams = BTCUtils.getQueryStringArgs();
-	$scope.theAddress = myURLParams['addr'];
+	$scope.theAddress = myURLParams['addr'].replace(/^B/,"");
+
 	if (!BTCUtils.isAddress($scope.theAddress)) {
 		$scope.theAddress = "invalid";
 	}
@@ -86,7 +87,7 @@ function AdressController($scope, $http) {
 		text: myURLParams['addr']
 		});
        // Make the http request for address and process the result
-       var file = 'addr/' + myURLParams['addr'] + '.json';	
+       var file = 'addr/' + $scope.theAddress + '.json';
        $http.get(file, {}).success(function (data, status, headers, config) {
            $scope.addressInformation = data;
            // get positive balances
