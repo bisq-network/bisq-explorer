@@ -64,7 +64,7 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
             if (txType=='GENESIS' or \
                     ((txType == 'TRANSFER_BSQ') and \
                      (o[u'txOutputType']=='BSQ_OUTPUT'))):
-                bsqAmount = o[u'value']
+                bsqAmount = o[u'bsqAmount']
                 txBsqAmount += bsqAmount
                 addr=o[u'address']
                 unspent=o[u'isUnspent']
