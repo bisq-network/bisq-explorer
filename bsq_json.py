@@ -4,7 +4,7 @@
 #                                         #
 #  Copyright Grazcoin 2017                #
 #  https://github.com/grazcoin/bisq-tools #
-#                                         #                                         
+#                                         #
 ###########################################
 
 import logging
@@ -16,17 +16,17 @@ from pprint import pprint
 import bsq_globals
 
 bsq_globals.init()
-bsq_globals.chainstate_dict=load_json_file('www/all/bsqChainState.json')
+bsq_globals.chainstate_dict=load_json_file('www/all/blocks.json')
 
 lines_per_page=10
 
 lines=[]
 last_block=0
-for block in bsq_globals.chainstate_dict[u'bsqBlocks']:
+for block in bsq_globals.chainstate_dict[u'blocks']:
     last_block=block[u'height']
     for tx in block[u'txs']:
-        txid=tx[u'txVo'][u'id']
-        time=tx[u'txVo'][u'time']
+        txid=tx[u'id']
+        time=tx[u'time']
         txType=tx[u'txType']
         burntFee=tx[u'burntFee']
         outputsNum=0
@@ -34,58 +34,63 @@ for block in bsq_globals.chainstate_dict[u'bsqBlocks']:
         # take address from first output as tx details
         address=tx[u'outputs'][0][u'address']
 
-        if txType == 'GENESIS':
+        if txType == 'UNVERIFIED':
+            txTypeDisplayString='Unverified'
+        elif txType == 'INVALID':
+            txTypeDisplayString='Invalid'
+        elif txType == 'GENESIS':
             txTypeDisplayString='Genesis'
+        elif txType == 'TRANSFER_BSQ':
+            txTypeDisplayString='Transfer BSQ'
+        elif txType == 'PAY_TRADE_FEE':
+            txTypeDisplayString='Pay trade fee'
+        elif txType == 'PROPOSAL':
+            txTypeDisplayString='Proposal'
+        elif txType == 'COMPENSATION_REQUEST':
+            txTypeDisplayString='Compensation request'
+        elif txType == 'BLIND_VOTE':
+            txTypeDisplayString='Blind vote'
+        elif txType == 'VOTE_REVEAL':
+            txTypeDisplayString='Vote reveal'
+        elif txType == 'LOCKUP':
+            txTypeDisplayString='Lockup'
+        elif txType == 'UNLOCK':
+            txTypeDisplayString='Unlock'
         else:
-            if txType == 'TRANSFER_BSQ':
-                txTypeDisplayString='Transfer BSQ'
-            else:
-                if txType == 'PAY_TRADE_FEE':
-                    txTypeDisplayString='Pay trade fee'
-                else:
-                    if txType == 'COMPENSATION_REQUEST':
-                        txTypeDisplayString='Compensation request'
-                    else:
-                        if txType == 'VOTE':
-                            txTypeDisplayString='Vote'
-                        else:
-                            if txType == 'ISSUANCE':
-                                txTypeDisplayString='Issuance'
-                            else:
-                                txTypeDisplayString='Unknown'
+            txTypeDisplayString='Undefined'
 
         for o in tx[u'outputs']:
             index=o[u'index']
             if (txType=='GENESIS' or \
-                ((txType == 'TRANSFER_BSQ') and \
-                (o[u'txOutputType']=='BSQ_OUTPUT'))):
-                    bsqAmount = o[u'value']
-                    txBsqAmount += bsqAmount
-                    addr=o[u'address']
-                    unspent=o[u'isUnspent']
-                    outputsNum+=1
-                    txo_entry={u'bsqAmount':bsqAmount, u'time':time, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'index':str(index)}
-                    if bsq_globals.addr_dict.has_key(addr):
-                        if unspent==True:
-                            bsq_globals.stats_dict['Unspent TXOs']+=1
-                            if bsq_globals.addr_dict[addr].has_key(u'utxos'):
-                                bsq_globals.addr_dict[addr][u'utxos'].append(txo_entry)
-                            else:
-                                bsq_globals.addr_dict[addr][u'utxos']=[txo_entry]
+                    ((txType == 'TRANSFER_BSQ') and \
+                     (o[u'txOutputType']=='BSQ_OUTPUT'))):
+                bsqAmount = o[u'value']
+                txBsqAmount += bsqAmount
+                addr=o[u'address']
+                unspent=o[u'isUnspent']
+                outputsNum+=1
+                txo_entry={u'bsqAmount':bsqAmount, u'time':time, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'index':str(index)}
+                if bsq_globals.addr_dict.has_key(addr):
+                    if unspent==True:
+                        bsq_globals.stats_dict['Unspent TXOs']+=1
+                        if bsq_globals.addr_dict[addr].has_key(u'utxos'):
+                            bsq_globals.addr_dict[addr][u'utxos'].append(txo_entry)
                         else:
-                            bsq_globals.stats_dict['Spent TXOs']+=1
-                            if bsq_globals.addr_dict[addr].has_key(u'stxos'):
-                                bsq_globals.addr_dict[addr][u'stxos'].append(txo_entry)
-                            else:
-                                bsq_globals.addr_dict[addr][u'stxos']=[txo_entry]
-
+                            bsq_globals.addr_dict[addr][u'utxos']=[txo_entry]
                     else:
-                        if unspent==True:
-                            bsq_globals.stats_dict['Unspent TXOs']+=1
-                            bsq_globals.addr_dict[addr]={u'utxos':[txo_entry]}
+                        bsq_globals.stats_dict['Spent TXOs']+=1
+                        if bsq_globals.addr_dict[addr].has_key(u'stxos'):
+                            bsq_globals.addr_dict[addr][u'stxos'].append(txo_entry)
                         else:
-                            bsq_globals.stats_dict['Spent TXOs']+=1
-                            bsq_globals.addr_dict[addr]={u'stxos':[txo_entry]}
+                            bsq_globals.addr_dict[addr][u'stxos']=[txo_entry]
+
+                else:
+                    if unspent==True:
+                        bsq_globals.stats_dict['Unspent TXOs']+=1
+                        bsq_globals.addr_dict[addr]={u'utxos':[txo_entry]}
+                    else:
+                        bsq_globals.stats_dict['Spent TXOs']+=1
+                        bsq_globals.addr_dict[addr]={u'stxos':[txo_entry]}
 
         if txType == 'GENESIS':
             # collect minted coins for stats
@@ -97,14 +102,18 @@ for block in bsq_globals.chainstate_dict[u'bsqBlocks']:
         line_dict={u'bsqAmount':txBsqAmount, u'txType':txType, u'txTypeDisplayString':txTypeDisplayString, u'txId':txid, u'time':time, u'burntFee':burntFee, u'outputsNum':outputsNum, u'height':last_block}
         lines.append(line_dict)
 
-# divide by 1000 Satoshi/BSQ
-bsq_globals.stats_dict['Minted amount']/=1000
-bsq_globals.stats_dict['Burnt amount']/=1000
-bsq_globals.stats_dict['Existing amount']/=1000
+# divide by 100 Satoshi/BSQ (1 BSQ = 100 Sat)
+bsq_globals.stats_dict['Minted amount']/=100
+bsq_globals.stats_dict['Burnt amount']/=100
+bsq_globals.stats_dict['Existing amount']/=100
 
 # calculate more stats
+# TODO missing issued amount
 bsq_globals.stats_dict['Existing amount']=bsq_globals.stats_dict['Minted amount']-bsq_globals.stats_dict['Burnt amount']
+
 bsq_globals.stats_dict['Addresses']=len(bsq_globals.addr_dict.keys())
+
+# TODO not provided yet in jsons (though in app available)
 bsq_globals.stats_dict['Price']=0.001234
 bsq_globals.stats_dict['Marketcap']=bsq_globals.stats_dict['Price']*bsq_globals.stats_dict['Existing amount']
 
@@ -158,7 +167,7 @@ for addr in bsq_globals.addr_dict.keys():
                 totalReceived+=s[u'bsqAmount']
                 spentOutputsNum+=1
                 totalSpent+=s[u'bsqAmount']
-                
+
     totalBurnt=totalGenesis+totalReceived-totalSpent-balance
 
     bsq_globals.addr_dict[addr][u'address']=addr
@@ -172,13 +181,13 @@ for addr in bsq_globals.addr_dict.keys():
     bsq_globals.addr_dict[addr][u'burntNum']=burntNum
     bsq_globals.addr_dict[addr][u'totalBurnt']=totalBurnt
     bsq_globals.addr_dict[addr][u'totalReserved']=totalReserved
-    
+
 
 for addr in bsq_globals.addr_dict.keys():
     atomic_json_dump(bsq_globals.addr_dict[addr],'www/addr/'+addr+'.json', add_brackets=False)
 
 (commit_hexsha,commit_time)=get_git_details()
 now=get_now()
-revision_dict={"commit_hexsha":commit_hexsha, "commit_time":commit_time, "last_block":last_block, "last_parsed":now, "url":"https://github.com/bitsquare/bitsquare/tree/DAO_phase1"}
+revision_dict={"commit_hexsha":commit_hexsha, "commit_time":commit_time, "last_block":last_block, "last_parsed":now, "url":"https://github.com/bisq-network/bisq"}
 
 atomic_json_dump(revision_dict,'www/revision.json', add_brackets=False)
