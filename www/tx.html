@@ -163,7 +163,7 @@
                                     <caption>Tx Inputs</caption>
                                    <thead>
                                         <tr>
-                                            <th>TXI</th>
+                                            <th>TxIn</th>
                                             <th>BSQ Amount</th>
                                             <th>From Address</th>
                                             <th>Date</th>
@@ -187,7 +187,7 @@
                                     <caption>Tx Outputs</caption>
                                    <thead>
                                         <tr>
-                                            <th>TXO</th>
+                                            <th>TxOut</th>
                                             <th>BSQ Amount</th>
                                             <th>To Address</th>
                                             <th>Date</th>
@@ -196,7 +196,7 @@
                                     <tbody>
                                         <tr ng-repeat="txo in transactionInformation.bsqOutputsList">
                                             <td>
-                                            <a ng-href='txo.html?txo={{txo.txId}}:{{txo.outputIndex}}'>{{txo.txId | characters:10}}:{{txo.outputIndex}}
+                                            <a ng-href='txo.html?txo={{txo.txId}}:{{txo.index}}'>{{txo.txId | characters:10}}:{{txo.index}}
                                             </a>
                                             </td>
                                             <td>{{(txo.bsqAmount/100).toFixed(2)}}</td>
