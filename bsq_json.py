@@ -7,6 +7,7 @@
 #                                         #
 ###########################################
 
+import config
 import logging
 from bsq_utils_general import *
 import sys
@@ -16,7 +17,7 @@ from pprint import pprint
 import bsq_globals
 
 bsq_globals.init()
-bsq_globals.chainstate_dict=load_json_file('www/all/blocks.json')
+bsq_globals.chainstate_dict=load_json_file(config.dataDir + 'json/all/blocks.json')
 
 lines_per_page=10
 

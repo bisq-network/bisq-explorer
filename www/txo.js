@@ -25,7 +25,7 @@ function TransactionController($scope, $http) {
 
         // parse txo from url parameters
         var myURLParams = BTCUtils.getQueryStringArgs();
-        var file = 'txo/' + myURLParams['txo'] + '.json';
+        var file = 'data/json/txo/' + myURLParams['txo'] + '.json';
         // Make the http request and process the result
         $http.get(file, {}).success(function (data, status, headers, config) {
             $scope.transactionInformation = data;

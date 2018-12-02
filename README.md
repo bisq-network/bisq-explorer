@@ -58,3 +58,24 @@ For mainnet:
 cd /home/user/bisq/bisq-explorer-mainnet
 python bsq_json.py
 ```
+
+
+### Installation
+Requires Bisq seednode with `--dumpBlockchainData=true`
+
+Some needed pyhton packages
+```
+sudo pip install python-bitcoinrpc
+sudo pip install simplejson
+```
+
+Setup symlink inside explorer/www to Bisq seednode db directory
+```
+ln -s /home/sqrrm/.local/share/dao_test/seed_2002/btc_regtest/db data
+```
+
+HTML need to point to explorer/www
+```
+cd /var/www
+ln -s /home/user/bisq/bisq-explorer-mainnet/www html
+```

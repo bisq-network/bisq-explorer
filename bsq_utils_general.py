@@ -14,6 +14,7 @@ import time
 import git
 import os
 import bsq_globals
+import config
 
 def run_command(command, input_str=None, ignore_stderr=False):
     if ignore_stderr:
@@ -153,8 +154,8 @@ def load_json_file(filename):
     data=simplejson.loads(unicode(json_data))
     return data
 
-def get_git_details(directory="~/github"):
-    repo = git.Repo(directory)
+def get_git_details():
+    repo=git.Repo(config.bisqHome);
     assert repo.bare == False
     head_commit=repo.head.commit
     timestamp=format_time_from_epoch(int(head_commit.authored_date), True)
