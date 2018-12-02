@@ -17,7 +17,6 @@ from pprint import pprint
 import bsq_globals
 
 bsq_globals.init()
-# bsq_globals.chainstate_dict=load_json_file('www/all/blocks.json')
 bsq_globals.chainstate_dict=load_json_file(config.dataDir + 'json/all/blocks.json')
 
 lines_per_page=10
@@ -63,9 +62,7 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
 
         for o in tx[u'outputs']:
             index=o[u'index']
-            if (txType=='GENESIS' or \
-                    ((txType == 'TRANSFER_BSQ') and \
-                     (o[u'txOutputType']=='BSQ_OUTPUT'))):
+            if (not o.has_key(u'opReturn')):
                 bsqAmount = o[u'bsqAmount']
                 txBsqAmount += bsqAmount
                 addr=o[u'address']
@@ -157,7 +154,7 @@ for addr in bsq_globals.addr_dict.keys():
             if u[u'txType']=='GENESIS':
                 genesisTxNum+=1
                 totalGenesis+=u[u'bsqAmount']
-            if u[u'txType']=='TRANSFER_BSQ':
+            else:
                 receivedOutputsNum+=1
                 totalReceived+=u[u'bsqAmount']
     if bsq_globals.addr_dict[addr].has_key(u'stxos'):
@@ -167,7 +164,7 @@ for addr in bsq_globals.addr_dict.keys():
                 totalGenesis+=s[u'bsqAmount']
                 spentOutputsNum+=1
                 totalSpent+=s[u'bsqAmount']
-            if s[u'txType']=='TRANSFER_BSQ':
+            else:
                 receivedOutputsNum+=1
                 totalReceived+=s[u'bsqAmount']
                 spentOutputsNum+=1

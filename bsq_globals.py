@@ -36,6 +36,6 @@ def init():
             "Spent TXOs":0,
             "Price":0,
             "Marketcap":0}
-    chaintate_dict={}
+    chainstate_dict={}
     d=False
 
