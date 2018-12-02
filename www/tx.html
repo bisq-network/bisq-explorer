@@ -24,7 +24,7 @@
       <!-- Bootstrap core CSS -->
       <link href="css/bootstrap.css" rel="stylesheet">
       <link href="css/bootstrap-theme.css" rel="stylesheet">
-      <link href="css/bootstrap-combobox.css" rel="stylesheet"> 
+      <link href="css/bootstrap-combobox.css" rel="stylesheet">
       <link href="css/search.css" rel="stylesheet">
       <script src="js/jquery-1.10.1.min.js"></script>
       <script src="js/jquery.tabSlideOut.v1.3.js"></script>
@@ -57,7 +57,7 @@
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                      </button>
-                     <a class="navbar-brand" href="/"><img src="img/logo.png" alt="bisq"></a>
+                     <a class="navbar-brand" href="https://explorer.bisq.network/testnet/"><img src="img/bisq-logo.svg" alt="bisq"></a>
                   </div>
                   <div class="navbar-collapse collapse">
                      <ul class="nav navbar-nav navbar-right">
@@ -99,7 +99,7 @@
                                     <tbody>
                                         <tr>
                                             <td>TXID</td>
-                                            <td><a ng-href="https://explorer.bisq.io:8443/insight/tx/{{transactionInformation.id}}/" target="_blank">{{transactionInformation.id}}</a></td>
+                                            <td><a ng-href="https://blockstream.info/testnet/tx/{{transactionInformation.id}}/" target="_blank">{{transactionInformation.id}}</a></td>
                                         </tr>
                                         <tr ng-repeat="txo in transactionInformation.bsqInputsList">
                                             <td>Sender</td>
@@ -132,12 +132,12 @@
                                         <tr>
                                             <td>Transaction type</td>
                                             <td>
-                                            <img class="round-corner {{transactionInformation.txType}} iconPopupInit"
+                                          <!--  <img class="round-corner {{transactionInformation.txType}} iconPopupInit"
 												src="ico/{{transactionInformation.txType}}24t.png"
 												ng-init="createIconPopup()"
 												data-content="{{transactionInformation.txTypeDisplayString}}" rel="popover"
 												data-placement="bottom"
-												alt="" />
+												alt="" />-->
                                             {{transactionInformation.txTypeDisplayString}}</td>
                                         </tr>
                                         <tr>

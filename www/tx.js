@@ -9,17 +9,17 @@ function TransactionController($scope, $http) {
     $scope.reason = "unknown";
 
     $scope.createIconPopup = function () {
-        $('.iconPopupInit').popover({ trigger: "hover" });           
+        $('.iconPopupInit').popover({ trigger: "hover" });
     };
 
     //Function for creating popup
     $scope.makePopup = function () {
-	//Popup for valid/invalid 
+	//Popup for valid/invalid
 	$('#validPopup').popover({ trigger: "hover" });
 	var navHeight = $('.navbar').height();
 	$('.page-container').css('paddingTop', navHeight + 20);
     };
-    
+
     $scope.getTransactionData = function () {
 
         // parse tx from url parameters
@@ -91,7 +91,7 @@ function TransactionController($scope, $http) {
                 $scope.transactionInformation.invalid = true;
         }
 
-        if ($scope.transactionInformation.txType == "GENESIS") {
+     /*   if ($scope.transactionInformation.txType == "GENESIS") {
                 $scope.transactionInformation.icon = "genesis";
                 $scope.transactionInformation.color = "bgc-new";
         } else {
@@ -102,7 +102,7 @@ function TransactionController($scope, $http) {
                     $scope.transactionInformation.icon = "simplesend";
                     $scope.transactionInformation.color = "bgc-default";
                }
-        }
+        }*/
     }
 
 

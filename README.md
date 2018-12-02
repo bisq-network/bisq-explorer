@@ -27,9 +27,9 @@ Inside the testnet and mainnet `www` directories we need to set symlinks to the 
 For testnet:
 ```
 cd /home/user/bisq/bisq-explorer-testnet/www
-ln -s /home/user/.local/share/seed_BTC_TESTNET_o5qw2hy6l7jsf654/btc_testnet/db/json/all all
-ln -s /home/user/.local/share/seed_BTC_TESTNET_o5qw2hy6l7jsf654/btc_testnet/db/json/tx tx
-ln -s /home/user/.local/share/seed_BTC_TESTNET_o5qw2hy6l7jsf654/btc_testnet/db/json/txo txo
+ln -s /home/user/.local/share/seed_BTC_TESTNET_p66zj5dzhccqhes3/btc_testnet/db/json/all all
+ln -s /home/user/.local/share/seed_BTC_TESTNET_p66zj5dzhccqhes3/btc_testnet/db/json/tx tx
+ln -s /home/user/.local/share/seed_BTC_TESTNET_p66zj5dzhccqhes3/btc_testnet/db/json/txo txo
 ```
 
 For mainnet:
