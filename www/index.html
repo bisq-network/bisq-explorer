@@ -127,19 +127,19 @@
                                     </td>
                                     <td ng-switch on="trans.txType">
                                     <span ng-switch-when="TRANSFER_BSQ">
-                                    {{(trans.bsqAmount/100).toFixed(3)}}
+                                    {{(trans.bsqAmount/100).toFixed(2)}}
                                     </span>
                                     <span ng-switch-when="PAY_TRADE_FEE">
-                                    {{(trans.burntFee/100).toFixed(3)}}
+                                    {{(trans.burntFee/100).toFixed(2)}}
                                     </span>
                                     <span ng-switch-when="GENESIS">
-                                    {{(trans.bsqAmount/100).toFixed(3)}}
+                                    {{(trans.bsqAmount/100).toFixed(2)}}
                                     </span>
                                     <span ng-switch-when="COMPENSATION_REQUEST">
-                                    {{(trans.bsqAmount/100).toFixed(3)}}
+                                    {{(trans.bsqAmount/100).toFixed(2)}}
                                     </span>
                                     <span ng-switch-default>
-                                    {{(trans.bsqAmount/100).toFixed(3)}}
+                                    {{(trans.bsqAmount/100).toFixed(2)}}
                                     </span>
                                     </td>
                                     <td>{{trans.outputsNum}}</td>
