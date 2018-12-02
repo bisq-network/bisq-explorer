@@ -77,7 +77,8 @@ function TransactionController($scope, $http) {
         var length = $scope.transactionInformation.outputs.length;
         var j = 0;
         for (var i = 0; i < length; i++) {
-            if ($scope.transactionInformation.outputs[i].isVerified == true) {
+            if ($scope.transactionInformation.outputs[i].isVerified == true &&
+                $scope.transactionInformation.outputs[i].opReturn == null) {
                 $scope.transactionInformation.bsqOutputsList[j] = $scope.transactionInformation.outputs[i];
                 j+=1;
             }

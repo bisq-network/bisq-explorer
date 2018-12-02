@@ -88,6 +88,7 @@
                               <thead>
                                  <tr>
                                     <th>Transaction</th>
+                                    <th>Type</th>
                                     <th>Total sent</th>
                                     <th>Outputs</th>
                                     <th>Block height</th>
@@ -125,6 +126,7 @@
                                        </a>
                                        </span>
                                     </td>
+                                    <td>{{trans.txType}}</td>
                                     <td ng-switch on="trans.txType">
                                     <span ng-switch-when="TRANSFER_BSQ">
                                     {{(trans.bsqAmount/100).toFixed(2)}}
