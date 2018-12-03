@@ -49,6 +49,8 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
             txTypeDisplayString='Proposal'
         elif txType == 'COMPENSATION_REQUEST':
             txTypeDisplayString='Compensation request'
+        elif txType == 'REIMBURSEMENT_REQUEST':
+            txTypeDisplayString='Reimbursement request'
         elif txType == 'BLIND_VOTE':
             txTypeDisplayString='Blind vote'
         elif txType == 'VOTE_REVEAL':
@@ -91,9 +93,11 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
                         bsq_globals.stats_dict['Spent TXOs']+=1
                         bsq_globals.addr_dict[addr]={u'stxos':[txo_entry]}
 
-        if txType == 'GENESIS':
-            # collect minted coins for stats
-            bsq_globals.stats_dict['Minted amount']+=txBsqAmount
+                if (o[u'txOutputType'] == 'GENESIS_OUTPUT' or
+                        o[u'txOutputType'] == 'ISSUANCE_CANDIDATE_OUTPUT') and \
+                        o[u'isVerified'] == True:
+                    # collect minted coins for stats
+                    bsq_globals.stats_dict['Minted amount']+=txBsqAmount
 
         # collect the fee for stats
         bsq_globals.stats_dict['Burnt amount']+=float(tx[u'burntFee'])
@@ -118,12 +122,9 @@ bsq_globals.stats_dict['Addresses']=len(bsq_globals.addr_dict.keys())
 
 
 stats_json=[]
-# for k in ["Existing amount", "Minted amount", "Burnt amount", "Addresses", "Unspent TXOs", "Spent TXOs", "Price", "Marketcap"]:
-#    stats_json.append({"name":k, "value":bsq_globals.stats_dict[k]})
+for k in ["Existing amount", "Minted amount", "Burnt amount", "Addresses", "Unspent TXOs", "Spent TXOs", "Price", "Marketcap"]:
+   stats_json.append({"name":k, "value":bsq_globals.stats_dict[k]})
     
-for k in ["Existing amount", "Minted amount"]:
-    stats_json.append({"name":k, "value":bsq_globals.stats_dict[k]})
-
 atomic_json_dump(stats_json,'www/general/stats.json', add_brackets=False)
 
 
