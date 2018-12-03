@@ -39,14 +39,16 @@ function TransactionController($scope, $http) {
     $scope.setSums = function () {
         $scope.transactionInformation.bsqReceived = $scope.inputsBsqAmountSum();
         $scope.transactionInformation.bsqSent = $scope.outputsBsqAmountSum();
-        $scope.transactionInformation.bsqBurnt = $scope.transactionInformation.bsqReceived - $scope.transactionInformation.bsqSent;
+        $scope.transactionInformation.bsqBurnt = $scope.transactionInformation.burntFee;
+        $scope.transactionInformation.bsqIssued = $scope.issued();
     }
 
     $scope.inputsBsqAmountSum = function () {
         var length = $scope.transactionInformation.inputs.length;
         var sum = 0;
         for (var i = 0; i < length; i++) {
-            sum += parseFloat($scope.transactionInformation.inputs[i].bsqAmount);
+            if ($scope.transactionInformation.inputs[i].isVerified == true)
+                sum += parseFloat($scope.transactionInformation.inputs[i].bsqAmount);
         }
         return sum;
     }
@@ -55,7 +57,19 @@ function TransactionController($scope, $http) {
         var length = $scope.transactionInformation.outputs.length;
         var sum = 0;
         for (var i = 0; i < length; i++) {
-            sum += parseFloat($scope.transactionInformation.outputs[i].bsqAmount);
+            if ($scope.transactionInformation.outputs[i].isVerified == true)
+                sum += parseFloat($scope.transactionInformation.outputs[i].bsqAmount);
+        }
+        return sum;
+    }
+
+    $scope.issued = function () {
+        var length = $scope.transactionInformation.outputs.length;
+        var sum = 0;
+        for (var i = 0; i < length; i++) {
+            if ($scope.transactionInformation.outputs[i].isVerified == true &&
+                $scope.transactionInformation.outputs[i].txOutputType == "ISSUANCE_CANDIDATE_OUTPUT")
+                sum += parseFloat($scope.transactionInformation.outputs[i].bsqAmount);
         }
         return sum;
     }
