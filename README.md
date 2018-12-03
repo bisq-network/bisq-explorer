@@ -67,6 +67,7 @@ Some needed pyhton packages
 ```
 sudo pip install python-bitcoinrpc
 sudo pip install simplejson
+sudo pip install gitpython
 ```
 
 Setup symlink inside explorer/www to Bisq seednode db directory
