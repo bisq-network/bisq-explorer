@@ -16,7 +16,9 @@
   visibility: visible;
 }
 .txtype_text {
+  padding-left: 5px;
   visibility: hidden;
+  font-size: 80%;
 }
 .icon-file-text .txtype {
   color: #818181;
