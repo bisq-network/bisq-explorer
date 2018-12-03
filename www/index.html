@@ -26,6 +26,7 @@
       <link href="css/bootstrap-theme.css" rel="stylesheet">
       <link href="css/bootstrap-combobox.css" rel="stylesheet">
       <link href="css/search.css" rel="stylesheet">
+      <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
       <script src="js/jquery-1.10.1.min.js"></script>
       <script src="js/jquery.tabSlideOut.v1.3.js"></script>
       <script src="js/angular.js"></script>
@@ -126,7 +127,68 @@
                                        </a>
                                        </span>
                                     </td>
-                                    <td>{{trans.txType}}</td>
+                                    <td ng-switch on="trans.txType">
+                                       <span ng-switch-when="UNVERIFIED">
+                                          <span class="icon-question-sign txtype dao-tx-type-unverified-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="INVALID">
+                                          <span class="icon-warning-sign txtype dao-tx-type-invalid-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="GENESIS">
+                                          <span class="icon-rocket txtype dao-tx-type-genesis-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="TRANSFER_BSQ">
+                                          <span class="icon-retweet txtype dao-tx-type-self-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="PAY_TRADE_FEE">
+                                          <span class="icon-leaf txtype dao-tx-type-trade-fee-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="PROPOSAL">
+                                          <span class="icon-file-text txtype dao-tx-type-proposal-fee-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="COMPENSATION_REQUEST">
+                                          <span class="icon-money txtype dao-tx-type-issuance-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="REIMBURSEMENT_REQUEST">
+                                          <span class="icon-money txtype dao-tx-type-issuance-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="BLIND_VOTE">
+                                          <span class="icon-eye-close txtype dao-tx-type-vote-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="VOTE_REVEAL">
+                                          <span class="icon-eye-open txtype dao-tx-type-vote-reveal-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="LOCKUP">
+                                          <span class="icon-lock txtype dao-tx-type-lockup-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="UNLOCK">
+                                          <span class="icon-unlock txtype dao-tx-type-unlock-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="ASSET_LISTING_FEE">
+                                          <span class="icon-file-text txtype dao-tx-type-proposal-fee-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                       <span ng-switch-when="PROOF_OF_BURN">
+                                          <span class="icon-file-text txtype dao-tx-type-proposal-fee-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                       <span ng-switch-default>
+                                          <span class="icon-question-sign txtype dao-tx-type-unverified-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                    </td>
                                     <td ng-switch on="trans.txType">
                                     <span ng-switch-when="TRANSFER_BSQ">
                                     {{(trans.bsqAmount/100).toFixed(2)}}
