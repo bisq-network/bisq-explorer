@@ -1,4 +1,9 @@
 .idea/*
 *.iml
-www/*
+#www/*
+www/addr
+www/data
+www/general
+www/revision.json
+www/values.json
 *.pyc
