@@ -73,13 +73,15 @@
   color: #ffac00;
 }
 
+#footer {
+  display: none;
+}
 
 article,
 aside,
 details,
 figcaption,
 figure,
-footer,
 header,
 hgroup,
 main,
