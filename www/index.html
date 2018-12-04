@@ -24,8 +24,9 @@
       <!-- Bootstrap core CSS -->
       <link href="css/bootstrap.css" rel="stylesheet">
       <link href="css/bootstrap-theme.css" rel="stylesheet">
-      <link href="css/bootstrap-combobox.css" rel="stylesheet"> 
+      <link href="css/bootstrap-combobox.css" rel="stylesheet">
       <link href="css/search.css" rel="stylesheet">
+      <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
       <script src="js/jquery-1.10.1.min.js"></script>
       <script src="js/jquery.tabSlideOut.v1.3.js"></script>
       <script src="js/angular.js"></script>
@@ -57,14 +58,14 @@
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                      </button>
-                     <a class="navbar-brand" href="/"><img src="img/logo.png" alt="bisq"></a>
+                     <a class="navbar-brand" href="https://explorer.bisq.network/testnet/"><img src="img/bisq-logo.svg" alt="bisq"></a>
                   </div>
                   <div class="navbar-collapse collapse">
                      <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">Recent</a></li>
-                        <li><a href="stats.html">Stats</a></li>
-                        <li><a href="API.html">API</a></li>
-                        <li><a href="https://bisq.io/dao/">Info</a></li>
+                     <li><a href="index.html">Recent</a></li>
+                     <li><a href="stats.html">Stats</a></li>
+                     <li><a href="API.html">API</a></li>
+                     <li><a href="https://docs.bisq.network/dao/phase-zero.html">Info</a></li>
                         <li>
                            <a class="searchLI">
                               <div id="searchContainer" class="search">
@@ -88,6 +89,7 @@
                               <thead>
                                  <tr>
                                     <th>Transaction</th>
+                                    <th>Type</th>
                                     <th>Total sent</th>
                                     <th>Outputs</th>
                                     <th>Block height</th>
@@ -97,13 +99,13 @@
                               <tbody>
                                  <tr ng-repeat="trans in transactions">
                                     <td ng-switch on="trans.txType">
-                                       <img class="icon24 round-corner {{trans.txType}} iconPopupInit"
+                                       <!--<img class="icon24 round-corner {{trans.txType}} iconPopupInit"
                                           src="ico/{{trans.txType}}24t.png"
                                           ng-init="createIconPopup()"
                                           data-content="{{trans.txTypeDisplayString}}" rel="popover"
                                           data-placement="bottom"
                                           alt=""
-                                          />
+                                          />-->
                                        <span ng-switch-when="GENESIS">
                                        <a ng-href='tx.html?tx={{trans.txId}}'>{{trans.txId | characters:10}}
                                        </a>
@@ -126,20 +128,82 @@
                                        </span>
                                     </td>
                                     <td ng-switch on="trans.txType">
+                                       <span ng-switch-when="UNVERIFIED">
+                                          <span class="icon-question-sign txtype dao-tx-type-unverified-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="INVALID">
+                                          <span class="icon-warning-sign txtype dao-tx-type-invalid-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="GENESIS">
+                                          <span class="icon-rocket txtype dao-tx-type-genesis-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="TRANSFER_BSQ">
+                                          <span class="icon-retweet txtype dao-tx-type-self-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="PAY_TRADE_FEE">
+                                          <span class="icon-leaf txtype dao-tx-type-trade-fee-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="PROPOSAL">
+                                          <span class="icon-file-text txtype dao-tx-type-proposal-fee-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="COMPENSATION_REQUEST">
+                                          <span class="icon-money txtype dao-tx-type-issuance-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="REIMBURSEMENT_REQUEST">
+                                          <span class="icon-money txtype dao-tx-type-issuance-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="BLIND_VOTE">
+                                          <span class="icon-eye-close txtype dao-tx-type-vote-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="VOTE_REVEAL">
+                                          <span class="icon-eye-open txtype dao-tx-type-vote-reveal-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="LOCKUP">
+                                          <span class="icon-lock txtype dao-tx-type-lockup-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="UNLOCK">
+                                          <span class="icon-unlock txtype dao-tx-type-unlock-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                        <span ng-switch-when="ASSET_LISTING_FEE">
+                                          <span class="icon-file-text txtype dao-tx-type-proposal-fee-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                       <span ng-switch-when="PROOF_OF_BURN">
+                                          <span class="icon-file-text txtype dao-tx-type-proposal-fee-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                       <span ng-switch-default>
+                                          <span class="icon-question-sign txtype dao-tx-type-unverified-icon"></span>
+                                          <span class=txtype_text>{{trans.txType}}</span>
+                                       </span>
+                                    </td>
+                                    <td ng-switch on="trans.txType">
                                     <span ng-switch-when="TRANSFER_BSQ">
-                                    {{(trans.bsqAmount/1000).toFixed(3)}}
+                                    {{(trans.bsqAmount/100).toFixed(2)}}
                                     </span>
                                     <span ng-switch-when="PAY_TRADE_FEE">
-                                    {{(trans.burntFee/1000).toFixed(3)}}
+                                    {{(trans.burntFee/100).toFixed(2)}}
                                     </span>
                                     <span ng-switch-when="GENESIS">
-                                    {{(trans.bsqAmount/1000).toFixed(3)}}
+                                    {{(trans.bsqAmount/100).toFixed(2)}}
                                     </span>
                                     <span ng-switch-when="COMPENSATION_REQUEST">
-                                    {{(trans.bsqAmount/1000).toFixed(3)}}
+                                    {{(trans.bsqAmount/100).toFixed(2)}}
                                     </span>
                                     <span ng-switch-default>
-                                    {{(trans.bsqAmount/1000).toFixed(3)}}
+                                    {{(trans.bsqAmount/100).toFixed(2)}}
                                     </span>
                                     </td>
                                     <td>{{trans.outputsNum}}</td>
@@ -171,7 +235,7 @@
       <div id="footer" ng-controller="RevisionController" ng-init="getData()">
          <div class="container c-footer-container">
             <div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>
-            <div class="muted credit">&copy; Grazcoin 2017</div>
+            <!--<div class="muted credit">&copy; Grazcoin 2017</div>-->
          </div>
       </div>
    </body>

@@ -24,7 +24,7 @@
       <!-- Bootstrap core CSS -->
       <link href="css/bootstrap.css" rel="stylesheet">
       <link href="css/bootstrap-theme.css" rel="stylesheet">
-      <link href="css/bootstrap-combobox.css" rel="stylesheet"> 
+      <link href="css/bootstrap-combobox.css" rel="stylesheet">
       <link href="css/search.css" rel="stylesheet">
       <script src="js/jquery-1.10.1.min.js"></script>
       <script src="js/jquery.tabSlideOut.v1.3.js"></script>
@@ -56,14 +56,14 @@
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                      </button>
-                     <a class="navbar-brand" href="/"><img src="img/logo.png" alt="bisq"></a>
+                     <a class="navbar-brand" href="https://explorer.bisq.network/testnet/"><img src="img/bisq-logo.svg" alt="bisq"></a>
                   </div>
                   <div class="navbar-collapse collapse">
                      <ul class="nav navbar-nav navbar-right">
                         <li><a href="index.html">Recent</a></li>
                         <li><a href="stats.html">Stats</a></li>
                         <li><a href="API.html">API</a></li>
-                        <li><a href="https://bisq.io/dao/">Info</a></li>
+                        <li><a href="https://docs.bisq.network/dao/phase-zero.html">Info</a></li>
                         <li>
                            <a class="searchLI">
                               <div id="searchContainer" class="search">
@@ -81,10 +81,10 @@
               <div class="row">
                 <div class="jumbotron">
                   <h3><img src="img/about.png" />API</h3>
-                  <p>https://explorer.bisq.io/tx/$TX_ID.json (e.g. <a href="https://explorer.bisq.io/tx/10085081b3c7eb3d15bc45eab9f8c4bd17a043f92928ea321f2705370bd44865.json">here</a>)</p>
-                  <p>https://explorer.bisq.io/txo/$TX_ID:$OUTPUT_INDEX.json (e.g. <a href="https://explorer.bisq.io/txo/10085081b3c7eb3d15bc45eab9f8c4bd17a043f92928ea321f2705370bd44865:0.json">here</a>)</p>
-                  <p>https://explorer.bisq.io/addr/$ADDRESS.json (e.g. <a href="https://explorer.bisq.io/addr/1Q2AsGe7Bg457YbqYhM8iKsa2R7EYviCNG.json">here</a>)</p>
-                  <p>https://explorer.bisq.io/general/$PAGE.json (e.g. <a href="https://explorer.bisq.io/general/BSQ_0001.json">here</a>)</p>
+                  <p>https://explorer.bisq.network/data/json/tx/$TX_ID.json (e.g. <a href="https://explorer.bisq.network/data/json/tx/10085081b3c7eb3d15bc45eab9f8c4bd17a043f92928ea321f2705370bd44865.json">here</a>)</p>
+                  <p>https://explorer.bisq.network/data/json/txo/$TX_ID:$OUTPUT_INDEX.json (e.g. <a href="https://explorer.bisq.network/data/json/txo/10085081b3c7eb3d15bc45eab9f8c4bd17a043f92928ea321f2705370bd44865:0.json">here</a>)</p>
+                  <p>https://explorer.bisq.network/addr/$ADDRESS.json (e.g. <a href="https://explorer.bisq.network/addr/1Q2AsGe7Bg457YbqYhM8iKsa2R7EYviCNG.json">here</a>)</p>
+                  <p>https://explorer.bisq.network/general/$PAGE.json (e.g. <a href="https://explorer.bisq.network/general/BSQ_0001.json">here</a>)</p>
                 </div>
             </div>
                   <div class="left_bar jumbotron col-sm-3 col-sm-pull-9 col-md-2 col-md-pull-10">
@@ -113,7 +113,7 @@
       <div id="footer" ng-controller="RevisionController" ng-init="getData()">
          <div class="container c-footer-container">
             <div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>
-            <div class="muted credit">&copy; Grazcoin 2017</div>
+            <!--<div class="muted credit">&copy; Grazcoin 2017</div>-->
          </div>
       </div>
    </body>

@@ -9,22 +9,22 @@ function TransactionController($scope, $http) {
     $scope.reason = "unknown";
 
     $scope.createIconPopup = function () {
-        $('.iconPopupInit').popover({ trigger: "hover" });           
+        $('.iconPopupInit').popover({ trigger: "hover" });
     };
 
     //Function for creating popup
     $scope.makePopup = function () {
-	//Popup for valid/invalid 
+	//Popup for valid/invalid
 	$('#validPopup').popover({ trigger: "hover" });
 	var navHeight = $('.navbar').height();
 	$('.page-container').css('paddingTop', navHeight + 20);
     };
-    
+
     $scope.getTransactionData = function () {
 
         // parse tx from url parameters
         var myURLParams = BTCUtils.getQueryStringArgs();
-        var file = 'tx/' + myURLParams['tx'] + '.json';
+        var file = 'data/json/tx/' + myURLParams['tx'] + '.json';
         // Make the http request and process the result
         $http.get(file, {}).success(function (data, status, headers, config) {
             $scope.transactionInformation = data;
@@ -39,14 +39,16 @@ function TransactionController($scope, $http) {
     $scope.setSums = function () {
         $scope.transactionInformation.bsqReceived = $scope.inputsBsqAmountSum();
         $scope.transactionInformation.bsqSent = $scope.outputsBsqAmountSum();
-        $scope.transactionInformation.bsqBurnt = $scope.transactionInformation.bsqReceived - $scope.transactionInformation.bsqSent;
+        $scope.transactionInformation.bsqBurnt = $scope.transactionInformation.burntFee;
+        $scope.transactionInformation.bsqIssued = $scope.issued();
     }
 
     $scope.inputsBsqAmountSum = function () {
         var length = $scope.transactionInformation.inputs.length;
         var sum = 0;
         for (var i = 0; i < length; i++) {
-            sum += parseFloat($scope.transactionInformation.inputs[i].bsqAmount);
+            if ($scope.transactionInformation.inputs[i].isVerified == true)
+                sum += parseFloat($scope.transactionInformation.inputs[i].bsqAmount);
         }
         return sum;
     }
@@ -55,7 +57,19 @@ function TransactionController($scope, $http) {
         var length = $scope.transactionInformation.outputs.length;
         var sum = 0;
         for (var i = 0; i < length; i++) {
-            sum += parseFloat($scope.transactionInformation.outputs[i].bsqAmount);
+            if ($scope.transactionInformation.outputs[i].isVerified == true)
+                sum += parseFloat($scope.transactionInformation.outputs[i].bsqAmount);
+        }
+        return sum;
+    }
+
+    $scope.issued = function () {
+        var length = $scope.transactionInformation.outputs.length;
+        var sum = 0;
+        for (var i = 0; i < length; i++) {
+            if ($scope.transactionInformation.outputs[i].isVerified == true &&
+                $scope.transactionInformation.outputs[i].txOutputType == "ISSUANCE_CANDIDATE_OUTPUT")
+                sum += parseFloat($scope.transactionInformation.outputs[i].bsqAmount);
         }
         return sum;
     }
@@ -77,7 +91,8 @@ function TransactionController($scope, $http) {
         var length = $scope.transactionInformation.outputs.length;
         var j = 0;
         for (var i = 0; i < length; i++) {
-            if ($scope.transactionInformation.outputs[i].isVerified == true) {
+            if ($scope.transactionInformation.outputs[i].isVerified == true &&
+                $scope.transactionInformation.outputs[i].opReturn == null) {
                 $scope.transactionInformation.bsqOutputsList[j] = $scope.transactionInformation.outputs[i];
                 j+=1;
             }
@@ -91,7 +106,7 @@ function TransactionController($scope, $http) {
                 $scope.transactionInformation.invalid = true;
         }
 
-        if ($scope.transactionInformation.txType == "GENESIS") {
+     /*   if ($scope.transactionInformation.txType == "GENESIS") {
                 $scope.transactionInformation.icon = "genesis";
                 $scope.transactionInformation.color = "bgc-new";
         } else {
@@ -102,7 +117,7 @@ function TransactionController($scope, $http) {
                     $scope.transactionInformation.icon = "simplesend";
                     $scope.transactionInformation.color = "bgc-default";
                }
-        }
+        }*/
     }
 
 

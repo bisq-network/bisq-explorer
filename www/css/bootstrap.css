@@ -10,6 +10,70 @@
 
 /*! normalize.css v2.1.0 | MIT License | git.io/normalize */
 
+
+/* Style icons according to bisq color scheme */
+.txtype:hover + .txtype_text {
+  visibility: visible;
+}
+.txtype_text {
+  padding-left: 5px;
+  visibility: hidden;
+  font-size: 80%;
+}
+.icon-file-text .txtype {
+  color: #818181;
+}
+.icon-file-text .txtype {
+  color: #818181;
+}
+
+.dao-tx-type-unverified-icon {
+  color: #ffac00;
+}
+.dao-tx-type-invalid-icon{
+  color: #ff4500;
+}
+.dao-tx-type-genesis-icon{
+  color: #25B135;
+}
+.dao-tx-type-self-icon{
+  color: #818181;
+}
+.dao-tx-type-trade-fee-icon{
+  color: #689f43;
+}
+.dao-tx-type-proposal-fee-icon{
+  color: #6c8b3b;
+}
+.dao-tx-type-issuance-icon{
+  color: #04a908;
+}
+.dao-tx-type-issuance-icon{
+  color: #04a908;
+}
+.dao-tx-type-vote-icon{
+  color: #0a4576;
+}
+.dao-tx-type-vote-reveal-icon{
+  color: #4AC5FF;
+}
+.dao-tx-type-lockup-icon{
+  color: #203e7f;
+}
+.dao-tx-type-unlock-icon{
+  color: #438e6c;
+}
+.dao-tx-type-proposal-fee-icon{
+  color: #6c8b3b;
+}
+.dao-tx-type-proposal-fee-icon{
+  color: #6c8b3b;
+}
+.dao-tx-type-unverified-icon{
+  color: #ffac00;
+}
+
+
 article,
 aside,
 details,
@@ -324,13 +388,13 @@ textarea {
 }
 
 a {
-  color: #428bca;
+  color: #25B135;
   text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: #2a6496;
+  color: #187322;
   text-decoration: underline;
 }
 

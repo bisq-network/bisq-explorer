@@ -32,7 +32,7 @@ $(document).ready(function () {
 
 
     //Ajax call so I can see transactionType from JSON
-    url = 'tx/' + tx + '.json';
+    url = 'data/json/tx/' + tx + '.json';
     $.ajax({
 	url: url,
 	type: 'get',
