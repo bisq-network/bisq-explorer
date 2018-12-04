@@ -154,7 +154,7 @@ def load_json_file(filename):
     return data
 
 def get_git_details():
-    return ""
+    return ("","")
     # repo=git.Repo(config.bisqHome);
     # assert repo.bare == False
     # head_commit=repo.head.commit
