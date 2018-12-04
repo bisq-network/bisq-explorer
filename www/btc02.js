@@ -14,9 +14,9 @@ function BTCController($scope, $http) {
     $scope.currentPage = 1;
     $scope.numberOfPages = 12; // this we will get somehow from the server
     $scope.firstLoad = true;
-    $scope.prevClass='disabled';
-    $scope.nextClass='';
-    
+    $scope.prevClass = 'disabled';
+    $scope.nextClass = '';
+
     $scope.createIconPopup = function () {
     	$('.iconPopupInit').popover({ trigger: "hover" });           
     };
