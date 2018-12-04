@@ -7,7 +7,6 @@
 #                                         #
 ###########################################
 
-import config
 import logging
 from bsq_utils_general import *
 import sys

@@ -14,7 +14,6 @@ import time
 import git
 import os
 import bsq_globals
-import config
 
 def run_command(command, input_str=None, ignore_stderr=False):
     if ignore_stderr:
