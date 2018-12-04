@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATADIR=/home/sqrrm/.local/share/dao_test/seed_2002/btc_regtest
+DATADIR=/home/user/.local/share/seed_BTC_TESTNET_p66zj5dzhccqhes3/btc_testnet/db
 
 
 rsync -r $DATADIR/db/ www/data
