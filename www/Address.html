@@ -1,8 +1,7 @@
 <!doctype html>
 
 <!--
-    Copyright Grazcoin 2017
-    https://github.com/grazcoin/bisq-tools
+    Copyright Bisq 2018
 -->
 
 <html ng-app="myApp">
@@ -103,7 +102,7 @@
                                  <caption>BSQ Balance</caption>
                                  <tbody>
                                     <tr>
-                                       <td>Final balance</td>
+                                       <td>Final Balance</td>
                                        <td><strong>{{(addressInformation.balance/100).toFixed(2)}}</strong>
                                        </td>
                                     </tr>
@@ -112,15 +111,15 @@
                                        <td>{{(addressInformation.totalGenesis/100).toFixed(2)}}</td>
                                     </tr>
                                     <tr>
-                                       <td>BSQ received</td>
+                                       <td>BSQ Received</td>
                                        <td>{{(addressInformation.totalReceived/100).toFixed(2)}}</td>
                                     </tr>
                                     <tr>
-                                       <td>BSQ spent</td>
+                                       <td>BSQ Spent</td>
                                        <td>{{(addressInformation.totalSpent/100).toFixed(2)}}</td>
                                     </tr>
                                     <tr>
-                                       <td>BSQ burnt</td>
+                                       <td>BSQ Burnt</td>
                                        <td>{{(addressInformation.totalBurnt/100).toFixed(2)}}</td>
                                     </tr>
                                  </tbody>
@@ -128,7 +127,7 @@
                            </div>
                            <div class="col-md-6">
                               <table class="table table-striped table-hover table-condensed">
-                                 <caption>More BSQ info</caption>
+                                 <caption>Information</caption>
                                  <tbody>
                                     <!--<tr>-->
                                        <!--<td>Reserved</td>-->
@@ -136,15 +135,15 @@
                                        <!--</td>-->
                                     <!--</tr>-->
                                     <tr>
-                                       <td>Genesis transactions</td>
+                                       <td>Genesis Transactions</td>
                                        <td>{{addressInformation.genesisTxNum}}</td>
                                     </tr>
                                     <tr>
-                                       <td>Incoming BSQ transactions</td>
+                                       <td>Incoming BSQ Transactions</td>
                                        <td>{{addressInformation.receivedOutputsNum}}</td>
                                     </tr>
                                     <tr>
-                                       <td>Outgoing BSQ transactions</td>
+                                       <td>Outgoing BSQ Transactions</td>
                                        <td>{{addressInformation.spentOutputsNum}}</td>
                                     </tr>
                                     <!--<tr>-->
@@ -226,8 +225,8 @@
       </div>
       <div id="footer" ng-controller="RevisionController" ng-init="getData()">
          <div class="container c-footer-container">
-            <div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>
-            <!--<div class="muted credit">&copy; Grazcoin 2017</div>-->
+            <!--<div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>-->
+            <div class="muted credit">&copy; Bisq 2018</div>
          </div>
       </div>
    </body>

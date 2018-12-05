@@ -1,8 +1,7 @@
 <!doctype html>
 
 <!--
-    Copyright Grazcoin 2017
-    https://github.com/grazcoin/bisq-tools
+    Copyright Bisq 2018
 -->
 
 <html ng-app="myApp">
@@ -103,37 +102,45 @@
                         <div class="transactionContainer">
                            <div class="col-md-6">
                               <table class="table table-striped table-hover table-condensed">
-                                 <caption>TxOut Basic Information</caption>
+                                 <caption>BTC TxOut Information</caption>
                                  <tbody>
+                                    <tr>
+                                       <td>Address</td>
+                                       <td><a ng-href="Address.html?addr={{transactionInformation.scriptPubKey.addresses[0]}}">B{{transactionInformation.scriptPubKey.addresses[0]}}</a></td>
+                                    </tr>
                                     <tr>
                                        <td>Index</td>
                                        <td>{{transactionInformation.index}}</td>
                                     </tr>
                                     <tr>
-                                       <td>Receive Tx</td>
+                                       <td>Received Tx</td>
                                        <td><a ng-href="tx.html?tx={{transactionInformation.txId}}">{{transactionInformation.txId}}</a></td>
+                                    </tr>
+                                    <tr>
+                                       <td>Included In Block</td>
+                                       <td>{{transactionInformation.height}}</td>
                                     </tr>
                                     <tr>
                                        <td>Spent Tx</td>
                                        <td><a ng-href="tx.html?tx={{transactionInformation.spentInfo.txId}}">{{transactionInformation.spentInfo.txId}}</a></td>
                                     </tr>
                                     <tr>
-                                       <td>Address</td>
-                                       <td><a ng-href="Address.html?addr={{transactionInformation.scriptPubKey.addresses[0]}}">B{{transactionInformation.scriptPubKey.addresses[0]}}</a></td>
+                                       <td>Spent In Block</td>
+                                       <td>{{transactionInformation.spentInfo.height}}</td>
                                     </tr>
                                     <tr>
-                                       <td>BSQ Amount</td>
-                                       <td>{{(transactionInformation.bsqAmount/100).toFixed(2)}}</td>
+                                       <td>Block Time</td>
+                                       <td>{{transactionInformation.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     </tr>
                                  </tbody>
                               </table>
                            </div>
                            <div class="col-md-6">
                               <table class="table table-condensed">
-                                 <caption>Information</caption>
+                                 <caption>BSQ Information</caption>
                                  <tbody>
                                     <tr>
-                                       <td>Transaction type</td>
+                                       <td>Transaction Type</td>
                                        <td>
                                          <!-- <img class="round-corner {{transactionInformation.txType}} iconPopupInit"
                                              src="ico/{{transactionInformation.txType}}24t.png"
@@ -145,16 +152,8 @@
                                        </td>
                                     </tr>
                                     <tr>
-                                       <td>Included in block</td>
-                                       <td>{{transactionInformation.height}}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Block time</td>
-                                       <td>{{transactionInformation.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                    </tr>
-                                    <tr>
-                                       <td>Spent in block</td>
-                                       <td>{{transactionInformation.spentInfo.height}}</td>
+                                       <td>BSQ Amount</td>
+                                       <td>{{(transactionInformation.bsqAmount/100).toFixed(2)}}</td>
                                     </tr>
                                     <tr>
                                        <td>Valid</td>
@@ -184,8 +183,8 @@
       </div>
       <div id="footer" ng-controller="RevisionController" ng-init="getData()">
          <div class="container c-footer-container">
-            <div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>
-            <!--<div class="muted credit">&copy; Grazcoin 2017</div>-->
+            <!--<div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>-->
+            <div class="muted credit">&copy; Bisq 2018</div>
          </div>
       </div>
    </body>

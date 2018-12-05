@@ -1,8 +1,7 @@
 <!doctype html>
 
 <!--
-    Copyright Grazcoin 2017
-    https://github.com/grazcoin/bisq-tools
+    Copyright Bisq 2018
 -->
 
 <html ng-app="myApp">
@@ -88,7 +87,7 @@
                         <div class="row" ng-show="properties.length">
                            <div class="col-md-12">
                               <table class="table table-striped table-hover table-condensed">
-                                 <caption>Statistics for BSQ</caption>
+                                 <caption>BSQ Statistics</caption>
                                  <thead>
                                     <tr>
                                        <th>Property</th>
@@ -115,8 +114,8 @@
       </div>
       <div id="footer" ng-controller="RevisionController" ng-init="getData()">
          <div class="container c-footer-container">
-            <div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>
-            <!--<div class="muted credit">&copy; Grazcoin 2017</div>-->
+            <!--<div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>-->
+            <div class="muted credit">&copy; Bisq 2018</div>
          </div>
       </div>
     </div>

@@ -1,6 +1,5 @@
 /*
-    Copyright Grazcoin 2017
-    https://github.com/grazcoin/bisq-tools
+    Copyright Bisq 2018
 */
 
 function BTCController($scope, $http) {
@@ -45,7 +44,7 @@ function BTCController($scope, $http) {
             $scope.currentPageStart=$scope.numberOfPages-$scope.showPages+1;
         $scope.currentPage=$i;
         $scope.transactions = {};
-        $scope.caption = 'Latest BSQ transactions';
+        $scope.caption = 'Latest BSQ Transactions';
 	
 	var num=str_pad($i, 4, '0', 'STR_PAD_LEFT');
 	var filter = (myURLParams['filter'] && BTCUtils.isFilter(myURLParams['filter']))? myURLParams['filter'] + "_" : "";

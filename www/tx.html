@@ -1,8 +1,7 @@
 <!doctype html>
 
 <!--
-    Copyright Grazcoin 2017
-    https://github.com/grazcoin/bisq-tools
+    Copyright Bisq 2018
 -->
 
 <html ng-app="myApp">
@@ -95,7 +94,7 @@
                         <div class="transactionContainer">
                             <div class="col-md-6">
                                 <table class="table table-striped table-hover table-condensed">
-                                    <caption>Transaction Details</caption>
+                                    <caption>BTC Transaction Details</caption>
                                     <tbody>
                                         <tr>
                                             <td>TXID</td>
@@ -110,31 +109,23 @@
                                             <td><a ng-href="Address.html?addr={{txo.address}}">B{{txo.address}}</a></td>
                                         </tr>
                                         <tr>
-                                            <td>BSQ amount Inputs</td>
-                                            <td>{{(transactionInformation.bsqReceived/100).toFixed(2)}}
+                                            <td>Included In Block</td>
+                                            <td>{{transactionInformation.blockHeight}}</td>
                                         </tr>
                                         <tr>
-                                            <td>BSQ amount Outputs</td>
-                                            <td>{{(transactionInformation.bsqSent/100).toFixed(2)}}
+                                            <td>Block Time</td>
+                                            <td>{{transactionInformation.outputs[0].time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                         </tr>
-                                        <tr>
-                                            <td>BSQ amount Burnt</td>
-                                            <td>{{(transactionInformation.bsqBurnt/100).toFixed(2)}}
-                                        </tr>
-                                        <tr>
-                                            <td>BSQ issuance</td>
-                                            <td>{{(transactionInformation.bsqIssued/100).toFixed(2)}}
-                                        </tr>
-
+                                        </td>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="col-md-6">
                                 <table class="table table-striped table-hover table-condensed">
-                                    <caption>Information</caption>
+                                    <caption>BSQ Information</caption>
                                     <tbody>
                                         <tr>
-                                            <td>Transaction type</td>
+                                            <td>Transaction Type</td>
                                             <td>
                                           <!--  <img class="round-corner {{transactionInformation.txType}} iconPopupInit"
 												src="ico/{{transactionInformation.txType}}24t.png"
@@ -145,18 +136,25 @@
                                             {{transactionInformation.txTypeDisplayString}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Transaction version</td>
+                                            <td>Transaction Version</td>
                                             <td>{{transactionInformation.txVersion}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Included in block</td>
-                                            <td>{{transactionInformation.blockHeight}}</td>
+                                            <td>BSQ Amount Inputs</td>
+                                            <td>{{(transactionInformation.bsqReceived/100).toFixed(2)}}
                                         </tr>
                                         <tr>
-                                            <td>Block time</td>
-                                            <td>{{transactionInformation.outputs[0].time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td>BSQ Amount Outputs</td>
+                                            <td>{{(transactionInformation.bsqSent/100).toFixed(2)}}
                                         </tr>
-                                       </td>
+                                        <tr>
+                                            <td>BSQ Amount Burnt</td>
+                                            <td>{{(transactionInformation.bsqBurnt/100).toFixed(2)}}
+                                        </tr>
+                                        <tr>
+                                            <td>BSQ Issuance</td>
+                                            <td>{{(transactionInformation.bsqIssued/100).toFixed(2)}}
+                                        </tr>
                                        </tr>
                                     </tbody>
                                 </table>
@@ -221,8 +219,8 @@
       </div>
       <div id="footer" ng-controller="RevisionController" ng-init="getData()">
          <div class="container c-footer-container">
-            <div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>
-            <!--<div class="muted credit">&copy; Grazcoin 2017</div>-->
+            <!--<div class="revision">Updated: {{revision.last_parsed}} rev <a href='{{revision.url}}'>{{revision.commit_hexsha|characters:6}}</a> ({{revision.commit_time}})</div>-->
+            <div class="muted credit">&copy; Bisq 2018</div>
          </div>
       </div>
    </body>

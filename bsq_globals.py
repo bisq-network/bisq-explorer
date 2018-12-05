@@ -1,7 +1,6 @@
 ###########################################
 #                                         #
-#  Copyright Grazcoin 2017                #
-#  https://github.com/grazcoin/bisq-tools #
+#  Copyright Bisq 2018                    #
 #                                         #
 ###########################################
 
