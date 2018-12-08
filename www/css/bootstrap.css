@@ -17,7 +17,7 @@
 }
 .txtype_text {
   padding-left: 5px;
-  visibility: hidden;
+  /*visibility: hidden;*/
   font-size: 100%;
 }
 .icon-file-text .txtype {

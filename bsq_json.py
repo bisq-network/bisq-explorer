@@ -57,6 +57,10 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
             txTypeDisplayString='Lockup'
         elif txType == 'UNLOCK':
             txTypeDisplayString='Unlock'
+        elif txType == 'ASSET_LISTING_FEE':
+            txTypeDisplayString='Asset listing fee'
+        elif txType == 'PROOF_OF_BURN':
+            txTypeDisplayString='Proof of burn'
         else:
             txTypeDisplayString='Undefined'
 
