@@ -17,7 +17,7 @@ import bsq_globals
 bsq_globals.init()
 bsq_globals.chainstate_dict=load_json_file('www/data/json/all/blocks.json')
 
-lines_per_page=10
+lines_per_page=100
 
 lines=[]
 last_block=0
