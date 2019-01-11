@@ -10,6 +10,42 @@ fullnode mode.
 ### Installation
 Requires Bisq seednode with `--dumpBlockchainData=true`
 
+#### Web Server
+```
+sudo apt-get update
+sudo apt-get install nginx
+```
+
+Check that it's running
+
+```
+systemctl status nginx
+```
+Copy nginx.config to /etc/nginx/sites-available and symlink from /etc/nginx/sites-enabled. Remove sym link to
+default site. Replace `hostname` with site name.
+
+Install certificate
+
+```
+sudo apt-get install software-properties-common
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+sudo certbot --nginx
+```
+
+Set automatic certificate renewal in crontab. Try to renew every month. Edit crontab...
+
+```
+sudo crontab -e
+```
+...and paste this line2
+```
+0 0 1 * * certbot renew
+```
+
+#### Explorer
 Some needed pyhton packages
 ```
 sudo pip install python-bitcoinrpc
@@ -28,7 +64,7 @@ cd /var/www
 ln -s @EXPLORER_HOME/www html
 ```
 
-### Bitcoin
+#### Bitcoin
 Bitcoin blocknotify script needs nc
 ```
 sudo apt install netcat-openbsd
@@ -55,10 +91,6 @@ Example blocknotify
 #!/bin/bash
 echo $1 | nc -w 1 127.0.0.1 5110
 
-sleep 2
-
-cd @EXPLORER_HOME
-python bsq_json.py
 ```
 ### Run
 
@@ -67,3 +99,5 @@ Run the python script from inside the explorer directory
 cd @EXPLORER_HOME
 python bsq_json.py
 ```
+
+Best to set that up in a crontab for now
