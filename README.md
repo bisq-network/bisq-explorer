@@ -64,6 +64,11 @@ cd /var/www
 ln -s @EXPLORER_HOME/www html
 ```
 
+For the update script 'inotifywait' is needed, it's part of inotify-tools
+```
+sudo apt install inotify-tools
+```
+
 #### Bitcoin
 Bitcoin blocknotify script needs nc
 ```
@@ -94,10 +99,18 @@ echo $1 | nc -w 1 127.0.0.1 5110
 ```
 ### Run
 
-Run the python script from inside the explorer directory
+Copy update_monitor.sh to a location outside of the explorer directory where the
+script will be run from. Then edit it to configure the DATADIR and EXPLORER_HOME derictories.
+
+To start the update monitor
 ```
-cd @EXPLORER_HOME
-python bsq_json.py
+./update_monitor.sh
 ```
 
-Best to set that up in a crontab for now
+To update the explorer state, using the data from bisq seednode it's possible
+to run the update manually. 
+```
+cd @EXPLORER_HOME
+./update_data.sh $DATADIR
+```
+
