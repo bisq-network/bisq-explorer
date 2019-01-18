@@ -6,4 +6,5 @@ www/data
 www/general
 www/revision.json
 www/values.json
+www/testnet
 *.pyc
