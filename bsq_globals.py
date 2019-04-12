@@ -7,7 +7,7 @@
 # globals.py
 
 # rpc_user and rpc_password
-from rpc_passwd import *
+from config import *
 from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 
 
@@ -22,7 +22,7 @@ def init():
     global stats_dict
     global chainstate_dict
     last_block=0
-    rpc_connection=AuthServiceProxy("http://%s:%s@127.0.0.1:8332"%(rpc_user, rpc_password))
+    rpc_connection=AuthServiceProxy("http://%s:%s@%s:%s"%(rpc_user, rpc_password,rpc_host,rpc_port))
     bsqutxo_dict={}
     bsqo_dict={}
     tx_dict={}
