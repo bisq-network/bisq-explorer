@@ -31,7 +31,10 @@ for block in bsq_globals.chainstate_dict[u'blocks']:
         outputsNum=0
         txBsqAmount=0
         # take address from first output as tx details
-        address=tx[u'outputs'][0][u'address']
+        if "u'address'" in tx[u'outputs'][0].keys():
+            address=tx[u'outputs'][0][u'address']
+        else:
+            address="n/a"
 
         if txType == 'UNVERIFIED':
             txTypeDisplayString='Unverified'
