@@ -92,7 +92,8 @@ sudo apt install netcat-openbsd
 
 Example `bitcoin.conf`
 ```
-testnet=1
+# Uncomment to run on testnet
+#testnet=1
 lang=en
 
 whitelist=127.0.0.1
