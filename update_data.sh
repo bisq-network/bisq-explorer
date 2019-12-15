@@ -11,9 +11,7 @@ function wait_for_change {
 
 while wait_for_change; do
   sleep 2
-  rm -rf www/data/json
-  rm -rf www/addr
-  cp -r $DATADIR/json www/data/json
+  rsync -rlt --delete $DATADIR/json www/data/
   /usr/bin/python ./bsq_json.py &
 done
 
