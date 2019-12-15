@@ -30,12 +30,6 @@ function BTCController($scope, $http) {
     	// parse currency from url parameters
 	var myURLParams = BTCUtils.getQueryStringArgs();
 	
-    	// Set title
-    	if (myURLParams['filter'] && BTCUtils.isFilter(myURLParams['filter'])) {
-    		document.title = "Recent " + myURLParams['filter'];
-    	} else {
-                document.title = "Recent";
-        }
         // Clear scope members
         $scope.currentPageStart = (1+$i-($i%$scope.showPages));
         if ($scope.currentPageStart>$i)
