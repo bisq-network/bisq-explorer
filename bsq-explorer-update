@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -a
+source /etc/default/bisq-seednode.env
+set +a
+if [ -z "${BISQ_JSON_DIR}" ] || [ -z "${BSQ_EXPLORER_ROOT}" ];then
+    echo "Environment variable missing! Check bisq-seednode.env configuration!"
+    exit 1
+fi
+
+while inotifywait -r -e modify,move,create,delete "${BISQ_JSON_DIR}"
+do
+    echo "Bisq has updated JSON data dump for BSQ transactions!"
+    sleep 5
+    echo "Syncing JSON from Bisq ${BISQ_JSON_DIR} to ${BSQ_EXPLORER_ROOT}/data/"
+    rsync -rt --exclude '*.tmp' "${BISQ_JSON_DIR}" "${BSQ_EXPLORER_ROOT}/data/"
+    echo "Re-indexing BSQ Explorer webroot"
+    /usr/local/bin/bsq-index
+done

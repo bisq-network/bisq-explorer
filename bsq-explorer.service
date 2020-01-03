@@ -1,0 +1,20 @@
+[Unit]
+Description=BSQ Explorer
+After=bisq-seednode.service
+
+[Service]
+ExecStart=/usr/local/bin/bsq-explorer-update
+ExecStop=/bin/kill -TERM ${MAINPID}
+Restart=on-failure
+
+User=bisq
+Group=bisq
+
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+PrivateDevices=true
+MemoryDenyWriteExecute=false
+
+[Install]
+WantedBy=multi-user.target
