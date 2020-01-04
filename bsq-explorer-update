@@ -2,10 +2,10 @@
 set -a
 source /etc/default/bisq-seednode.env
 set +a
-if [ -z "${BISQ_JSON_DIR}" ] || [ -z "${BSQ_EXPLORER_ROOT}" ];then
-    echo "Environment variable missing! Check bisq-seednode.env configuration!"
-    exit 1
-fi
+
+export BISQ_DATA_DIR=$BISQ_HOME/$BISQ_APP_NAME/$BISQ_BASE_CURRENCY
+export BISQ_JSON_DIR=$BISQ_DATA_DIR/db/json
+export BSQ_EXPLORER_ROOT=$BISQ_HOME/bisq-explorer/www
 
 while inotifywait -r -e modify,move,create,delete "${BISQ_JSON_DIR}"
 do
