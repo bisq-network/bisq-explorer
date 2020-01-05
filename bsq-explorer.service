@@ -3,7 +3,7 @@ Description=BSQ Explorer
 After=bisq-seednode.service
 
 [Service]
-ExecStart=/usr/local/bin/bsq-explorer-update
+ExecStart=/usr/local/bin/bsq-explorer
 ExecStop=/bin/kill -TERM ${MAINPID}
 Restart=on-failure
 
