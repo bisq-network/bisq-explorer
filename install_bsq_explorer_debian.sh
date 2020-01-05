@@ -36,7 +36,7 @@ echo "[*] Installing BSQ Explorer python packages"
 sudo python3 -m pip install ${EXPLORER_PYTHON_PKG}
 
 echo "[*] Installing BSQ Explorer scripts"
-for script in bsq-index bsq-explorer-update;do
+for script in bsq-index bsq-explorer;do
     sudo -H -i -u "${ROOT_USER}" install -c -o "${ROOT_USER}" -g "${ROOT_GROUP}" -m 755 "${BISQ_HOME}/${EXPLORER_REPO_NAME}/${script}" "${EXPLORER_BIN_PATH}"
 done
 
