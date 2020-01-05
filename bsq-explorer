@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# auto-export all variables
+set -a
+
+# load environment from bisq-seednode configuration
+source /etc/default/bisq-seednode.env
+
+# variables used by this script and bsq-index script
+BISQ_DATA_DIR="${BISQ_HOME}/${BISQ_APP_NAME}/${BISQ_BASE_CURRENCY}"
+BISQ_JSON_DIR="${BISQ_DATA_DIR}/db/json"
+BSQ_EXPLORER_ROOT="${BISQ_HOME}/bisq-explorer/www"
+BSQ_EXPLORER_DATA="${BSQ_EXPLORER_ROOT}/data"
+
+while true
+do
+    # sync
+    echo "Syncing BSQ transaction data JSON from ${BISQ_JSON_DIR} to ${BSQ_EXPLORER_DATA}/"
+    rsync -hrt --stats --exclude '*.tmp' "${BISQ_JSON_DIR}" "${BSQ_EXPLORER_DATA}/"
+
+    # index
+    echo "Indexing BSQ transaction data JSON and updating explorer HTML in ${BSQ_EXPLORER_ROOT}"
+    /usr/local/bin/bsq-index
+
+    # wait
+    echo "Waiting for BSQ transaction data update from Bisq seednode"
+    inotifywait -qq -r -e modify,move,create,delete "${BISQ_JSON_DIR}"
+    echo "Detected BSQ transaction data update from Bisq seednode"
+
+    # allow time for seednode to complete JSON data dump
+    sleep 10
+done
