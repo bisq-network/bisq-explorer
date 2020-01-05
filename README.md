@@ -13,6 +13,14 @@ sudo service bisq-seednode restart
 
 It will take 10+ minutes before the seednode starts saving BSQ transaction data.
 
+### Firewall
+
+Open ports 80 and 443 on your firewall for HTTP and HTTPS
+```bash
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+```
+
 ### Let's Encrypt
 
 Next, request an SSL certificate for your server from Let's Encrypt using certbot-nginx
