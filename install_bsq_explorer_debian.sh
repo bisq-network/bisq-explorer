@@ -34,6 +34,7 @@ TOR_RESOURCES=/var/lib/tor
 
 echo "[*] Enabling BSQ Explorer mode in Bisq-Seednode configuration"
 sudo -H -i -u "${ROOT_USER}" sed -i -e 's!BISQ_DUMP_BLOCKCHAIN=false!BISQ_DUMP_BLOCKCHAIN=true!' "${SYSTEMD_ENV_HOME}/bisq-seednode.env"
+sudo -H -i -u "${BISQ_USER}" mkdir -p "${BISQ_HOME}/bisq-seednode/btc_mainnet/db/json"
 sudo -H -i -u "${ROOT_USER}" service bisq-seednode restart
 
 echo "[*] Cloning BSQ Explorer repo"
