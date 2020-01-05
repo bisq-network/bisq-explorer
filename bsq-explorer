@@ -11,7 +11,7 @@ BISQ_DATA_DIR="${BISQ_HOME}/${BISQ_APP_NAME}/${BISQ_BASE_CURRENCY}"
 BISQ_JSON_DIR="${BISQ_DATA_DIR}/db/json"
 BSQ_EXPLORER_ROOT="${BISQ_HOME}/bisq-explorer/www"
 BSQ_EXPLORER_DATA="${BSQ_EXPLORER_ROOT}/data"
-BSQ_BLOCKS_FILE="${BSQ_EXPLORER_DATA}/json/all/blocks.json"
+BSQ_BLOCKS_FILE="${BISQ_JSON_DIR}/all/blocks.json"
 
 while true
 do
