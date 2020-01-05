@@ -21,7 +21,7 @@ curl -s https://raw.githubusercontent.com/bisq-network/bisq-explorer/master/inst
 It will start the BSQ Explorer service and serve the generated content as static HTML on a Tor hiddenservice onion hostname.
 ```
 [*] Done!
-[*] Your BSQ Explorer hostname: http://qwertyuiop.onion
+[*] Access your BSQ explorer at http://jo5e5hqcpvbcw66djrmstb3yfcrqzcp4z4c6amqstp7acehcvc6ogsyd.onion
 ```
 
 ### Let's Encrypt (optional)
