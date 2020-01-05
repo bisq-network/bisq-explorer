@@ -34,7 +34,7 @@ sudo ufw allow 443/tcp
 
 Request an SSL certificate for your server's hostname using certbot
 ```bash
-sudo certbot --nginx --agree-tos --non-interactive -m ssl@example.com -d explorer.example.com
+sudo certbot --nginx -d explorer.example.com
 ```
 
 Now you should be able to access your BSQ explorer at https://explorer.example.com/
