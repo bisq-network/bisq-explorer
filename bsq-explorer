@@ -17,7 +17,7 @@ while true
 do
     if [ ! -e "${BSQ_BLOCKS_FILE}" ];then
         echo "Waiting for BSQ blocks file ${BSQ_BLOCKS_FILE} to be created!"
-        inotifywait -qq -r -e modify,move,create,delete "${BSQ_BLOCKS_FILE}"
+        inotifywait -qq -r -e modify,move,create,delete "${BISQ_JSON_DIR}"
         continue
     fi
     # sync
