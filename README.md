@@ -37,7 +37,7 @@ curl -s https://raw.githubusercontent.com/bisq-network/bisq-explorer/master/inst
 Install the nginx.conf from this repository, substituting explorer.example.com for your server hostname
 ```bash
 sudo wget -O /etc/nginx/nginx.conf https://raw.githubusercontent.com/bisq-network/bisq-explorer/master/nginx.conf
-sudo sed -i -e '!__HOSTNAME__!explorer.example.com!g' /etc/nginx/nginx.conf
+sudo sed -i -e 's!__HOSTNAME__!explorer.example.com!g' /etc/nginx/nginx.conf
 sudo service nginx restart
 ```
 
