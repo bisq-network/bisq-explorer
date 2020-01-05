@@ -19,7 +19,7 @@ EXPLORER_REPO_URL=https://github.com/bisq-network/bisq-explorer
 EXPLORER_REPO_NAME=bisq-explorer
 EXPLORER_REPO_TAG=master
 
-EXPLORER_DEBIAN_PKG="python3-pip inotify-tools rsync"
+EXPLORER_DEBIAN_PKG="python3-pip inotify-tools rsync nginx-core python-certbot-nginx"
 EXPLORER_PYTHON_PKG="simplejson gitpython"
 EXPLORER_BIN_PATH="/usr/local/bin"
 
@@ -30,6 +30,7 @@ sudo -H -i -u "${BISQ_USER}" git config --global advice.detachedHead false
 sudo -H -i -u "${BISQ_USER}" git clone --branch "${EXPLORER_REPO_TAG}" "${EXPLORER_REPO_URL}" "${BISQ_HOME}/${EXPLORER_REPO_NAME}"
 
 echo "[*] Installing BSQ Explorer debian packages"
+sudo -H -i -u "${ROOT_USER}" DEBIAN_FRONTEND=noninteractive apt-get update -q
 sudo -H -i -u "${ROOT_USER}" DEBIAN_FRONTEND=noninteractive apt-get install -qq -y ${EXPLORER_DEBIAN_PKG}
 
 echo "[*] Installing BSQ Explorer python packages"
