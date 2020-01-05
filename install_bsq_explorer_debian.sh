@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "[*] Bisq Seednode installation script"
+echo "[*] Bisq Explorer installation script"
 
 ##### change as necessary for your system
 
