@@ -17,7 +17,7 @@ while true
 do
     if [ ! -e "${BSQ_BLOCKS_FILE}" ];then
         echo "BSQ blocks file ${BSQ_BLOCKS_FILE} does not exist!"
-        sleep 600
+        inotifywait -qq -r -e modify,move,create,delete "${BSQ_BLOCKS_FILE}"
         continue
     fi
     # sync
