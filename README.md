@@ -4,17 +4,7 @@ Follow these instructions to setup a [BSQ Explorer](https://explorer.bisq.networ
 
 ## Bisq Seednode
 
-First, [setup your Bisq Seednode](https://github.com/bisq-network/bisq/tree/master/seednode#bisq-seed-node) so you have Tor, Bitcoin, and bisq-seednode running and fully synced. Then, enable BSQ data output on your Bisq Seednode with the following command
-```bash
-sudo sed -i -e 's!BISQ_DUMP_BLOCKCHAIN=false!BISQ_DUMP_BLOCKCHAIN=true!' /etc/default/bisq-seednode.env
-sudo service bisq-seednode restart
-```
-
-It will take a few minutes before the seednode starts saving BSQ transaction data.
-
-## BSQ Explorer
-
-Next, run the intallation script from this repo to install BSQ explorer as a systemd service
+First, [setup your Bisq Seednode](https://github.com/bisq-network/bisq/tree/master/seednode#bisq-seed-node) so you have Tor, Bitcoin, and bisq-seednode running and fully synced. Then, run the intallation script from this repo to install BSQ explorer as a systemd service
 ```bash
 curl -s https://raw.githubusercontent.com/bisq-network/bisq-explorer/master/install_bsq_explorer_debian.sh | sudo bash
 ```

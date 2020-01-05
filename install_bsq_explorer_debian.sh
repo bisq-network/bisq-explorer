@@ -32,6 +32,10 @@ TOR_RESOURCES=/var/lib/tor
 
 #####
 
+echo "[*] Enabling BSQ Explorer mode in Bisq-Seednode configuration"
+sudo -H -i -u "${ROOT_USER}" sed -i -e 's!BISQ_DUMP_BLOCKCHAIN=false!BISQ_DUMP_BLOCKCHAIN=true!' "${SYSTEMD_ENV_HOME}/bisq-seednode.env"
+sudo -H -i -u "${ROOT_USER}" service bisq-seednode restart
+
 echo "[*] Cloning BSQ Explorer repo"
 sudo -H -i -u "${BISQ_USER}" git config --global advice.detachedHead false
 sudo -H -i -u "${BISQ_USER}" git clone --branch "${EXPLORER_REPO_TAG}" "${EXPLORER_REPO_URL}" "${BISQ_HOME}/${EXPLORER_REPO_NAME}"
