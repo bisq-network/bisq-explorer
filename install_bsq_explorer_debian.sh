@@ -49,7 +49,7 @@ sudo -H -i -u "${ROOT_USER}" install -c -o "${ROOT_USER}" -g "${ROOT_GROUP}" -m 
 echo "[*] Adding Tor configuration"
 if ! grep bsqexplorer /etc/tor/torrc >/dev/null 2>&1;then
   sudo -H -i -u "${ROOT_USER}" /bin/sh -c "echo HiddenServiceDir ${TOR_RESOURCES}/${EXPLORER_HIDDENSVC}/ >> ${TOR_CONFIGURATION}"
-  sudo -H -i -u "${ROOT_USER}" /bin/sh -c "echo HiddenServicePort 81 >> ${TOR_CONFIGURATION}"
+  sudo -H -i -u "${ROOT_USER}" /bin/sh -c "echo HiddenServicePort 80 127.0.0.1:81 >> ${TOR_CONFIGURATION}"
   sudo -H -i -u "${ROOT_USER}" /bin/sh -c "echo HiddenServiceVersion 3 >> ${TOR_CONFIGURATION}"
 fi
 
