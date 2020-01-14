@@ -10,3 +10,5 @@
 * [https://bsq.bisq.cc](https://bsq.bisq.cc) (operated by @m52go)
 
 ## Bisq v1.2.5 will automatically select one at random for you, please upgrade :)
+
+This folder only contains HTML/JS redirects for old Bisq apps which use the https://explorer.bisq.network URL
