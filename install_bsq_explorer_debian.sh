@@ -51,6 +51,9 @@ sudo python3 -m pip install ${EXPLORER_PYTHON_PKG}
 echo "[*] Adding Nginx configuration"
 sudo -H -i -u "${ROOT_USER}" install -c -o "${ROOT_USER}" -g "${ROOT_GROUP}" -m 644 "${BISQ_HOME}/${EXPLORER_REPO_NAME}/nginx.conf" "${NGINX_CONFIGURATION}"
 
+echo "[*] Restarting Nginx"
+sudo -H -i -u "${ROOT_USER}" service nginx restart
+
 echo "[*] Adding Tor configuration"
 if ! grep bsqexplorer /etc/tor/torrc >/dev/null 2>&1;then
   sudo -H -i -u "${ROOT_USER}" /bin/sh -c "echo HiddenServiceDir ${TOR_RESOURCES}/${EXPLORER_HIDDENSVC}/ >> ${TOR_CONFIGURATION}"
