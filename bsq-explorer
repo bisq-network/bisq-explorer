@@ -34,5 +34,5 @@ do
     echo "Detected BSQ transaction data update from Bisq seednode"
 
     # allow time for seednode to complete JSON data dump
-    sleep 10
+    sleep 30
 done
