@@ -4,7 +4,7 @@ Follow these instructions to setup a [BSQ Explorer](https://explorer.bisq.networ
 
 ## Bisq Seednode
 
-First, [setup your Bisq Seednode](https://github.com/bisq-network/bisq/tree/master/seednode#bisq-seed-node) so you have Tor, Bitcoin, and bisq-seednode running and fully synced. Then, run the intallation script from this repo to install BSQ explorer as a systemd service
+First, [setup your Bisq Seednode](https://github.com/bisq-network/bisq/tree/master/seednode#bisq-seed-node) so you have Tor, Bitcoin, and Bisq running and fully synced. Then, run the intallation script from this repo to install BSQ explorer as a systemd service
 ```bash
 curl -s https://raw.githubusercontent.com/bisq-network/bisq-explorer/master/install_bsq_explorer_debian.sh | sudo bash
 ```

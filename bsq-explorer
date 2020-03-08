@@ -3,8 +3,8 @@
 # auto-export all variables
 set -a
 
-# load environment from bisq-seednode configuration
-source /etc/default/bisq-seednode.env
+# load environment from bisq configuration
+source /etc/default/bisq.env
 
 # variables used by this script and bsq-index script
 BISQ_DATA_DIR="${BISQ_HOME}/${BISQ_APP_NAME}/${BISQ_BASE_CURRENCY}"

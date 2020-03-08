@@ -1,8 +1,8 @@
 [Unit]
 Description=BSQ Explorer
-After=bisq-seednode.service
-Requires=bisq-seednode.service
-BindsTo=bisq-seednode.service
+After=bisq.service
+Requires=bisq.service
+BindsTo=bisq.service
 
 [Service]
 ExecStart=/usr/local/bin/bsq-explorer
