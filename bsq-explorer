@@ -15,11 +15,14 @@ BSQ_BLOCKS_FILE="${BISQ_JSON_DIR}/all/blocks.json"
 
 while true
 do
+    # check/wait
     if [ ! -e "${BSQ_BLOCKS_FILE}" ];then
         echo "Waiting for BSQ blocks file ${BSQ_BLOCKS_FILE} to be created!"
         inotifywait -qq -r -e modify,move,create,delete "${BISQ_JSON_DIR}"
+        sleep 10
         continue
     fi
+
     # sync
     echo "Syncing BSQ transaction data JSON from ${BISQ_JSON_DIR} to ${BSQ_EXPLORER_DATA}/"
     rsync -hrt --stats --exclude '*.tmp' "${BISQ_JSON_DIR}" "${BSQ_EXPLORER_DATA}/"
